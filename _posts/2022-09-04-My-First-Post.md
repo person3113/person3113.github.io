@@ -1,5 +1,5 @@
 ---
-title: "My First Post"
+title: "[Blog] My First Post"
 excerpt: "making blog's content first in my life, I'm so happy"
 
 categories:
@@ -11,7 +11,7 @@ toc: true
 toc_sticky: false
 
 date: 2022-09-04
-last_modified_at: 2022-09-04
+last_modified_at: 2022-09-05
 ---
 
 # 1. The reason I start github blog
