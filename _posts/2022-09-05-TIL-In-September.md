@@ -11,7 +11,7 @@ toc: true
 toc_sticky: false
 
 date: 2022-09-05
-last_modified_at: 2022-09-06
+last_modified_at: 2022-09-07
 ---
 
 # On 09/05 (Mon)
@@ -94,3 +94,67 @@ last_modified_at: 2022-09-06
     - all parts of this video is interesting.
   - "JAVA method - 9. 부록 - static"
     - all parts of this video is interesting.
+
+<br><br>
+
+# On 09/07 (Wed)
+
+## Opentutorials.org
+
+- From "Java 상속 - 1. 수업소개" to "Java 상속 - 6 수업을 마치며"
+
+## "Do it! 알고리즘 코딩테스트 자바 편"
+
+- p.17~p.41
+
+  - "숫자의 합 구하기 (문제 001/35p)"
+
+    - Scanner sNum=new Scanner(System.in); //create Scnner instance
+    - int N = sc.nextInt(); // returns the Int scanned from the input.
+    - String sNum = sc.next(); // scan input data like "12345"
+    - char[] cNum = sNum.toCharArray(); // ex) "1234".toCharArray() -> return character array {1,2,3,4}
+    - how to convert '1' to 1
+      - In ASCII, the difference between the code values of letters and numbers of the same meaning is 48.
+      - '1' - 48 or '1' - '0'
+
+    <br>
+
+  - "평균 구하기 (문제 002, 38p)(Baekjoon Online Judge: 1546번) "
+
+    - This problem wasn't difficult for me, but I failed to solve it.
+    - My solving process is as follow:
+
+    ```java
+    import java.util.Scanner;
+
+    public class Main {
+      public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] grade = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            grade[i] = sc.nextInt();
+        }
+
+        int max = grade[0];
+        for (int i = 0; i < n; i++) {
+            if (grade[i] > max) {
+                max = grade[i];
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            grade[i] = grade[i] * 100 / max;
+        }
+
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += grade[i];
+        }
+        System.out.println((double) sum / n);
+
+        sc.close();
+      }
+    }
+    ```
