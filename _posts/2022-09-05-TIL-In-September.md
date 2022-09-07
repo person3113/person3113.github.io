@@ -105,7 +105,7 @@ last_modified_at: 2022-09-07
 
 ## "Do it! 알고리즘 코딩테스트 자바 편"
 
-- p.17~p.41
+- p.17~p.44
 
   - "숫자의 합 구하기 (문제 001/35p)"
 
@@ -158,3 +158,17 @@ last_modified_at: 2022-09-07
       }
     }
     ```
+
+    <br>
+
+  - 00:00 ~ 12:00 in "코딩 테스트 핵심이론 강의 - 시간복잡도 (Java)"
+
+    - I didn't understand why "1,000,000log(1,000,000)" is about 20,000,000. Because I thought the base of the log is 10.
+    - Therefore, I searched several sites and found out the following facts.
+
+      - First, in the "Big-O" notation, the coefficient is discarded and only the degree is considered.
+      - Second, The logarithm has the following properties.
+        ![image](https://t1.daumcdn.net/cfile/tistory/997A6D435C5299E021)
+        Source: <https://nacture.kr/73>
+
+        for example, "log a N" is "log c N / log c a". this coefficient is "log c a", so it is discarded. Therefore, O(log a N) is O(log c N). After all, the base dosen't really matter.
