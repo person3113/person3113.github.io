@@ -172,3 +172,53 @@ last_modified_at: 2022-09-07
         Source: <https://nacture.kr/73>
 
         for example, "log a N" is "log c N / log c a". this coefficient is "log c a", so it is discarded. Therefore, O(log a N) is O(log c N). After all, the base dosen't really matter.
+
+<br><br>
+
+# On 09/13 (Tue)
+
+## "Do it! 알고리즘 코딩테스트 자바 편" (Video Lectures)
+
+- "코딩 테스트 핵심이론 강의 - 시간복잡도 (Java)"
+- "코딩 테스트 핵심이론 강의 - 디버깅 (Java)"
+  - In VSCode, "Run and Debug" -> "watch" -> "add expression" -> while debuging, I can check certain expressions such as "A[0]+A[5]"
+- "코딩 테스트 핵심이론 강의 - 배열과 리스트 (Java)"
+- "코딩 테스트 문제풀이 강의 - 1 숫자의 합 구하기 (백준 11720)"
+- "코딩 테스트 문제풀이 강의 - 2 평균 구하기 (백준 1546)"
+
+  - I changed my code of this problem to the following:
+
+  ```java
+  import java.util.Scanner;
+
+  public class Main {
+    public static void main(String[] args) {
+      Scanner sc = new Scanner(System.in);
+      int n = sc.nextInt();
+      double[] grade = new double[n];  //changed!
+
+      for (int i = 0; i < n; i++) {
+          grade[i] = sc.nextInt();
+      }
+
+      double max = grade[0];  //changed!
+      for (int i = 0; i < n; i++) {
+          if (grade[i] > max) {
+              max = grade[i];
+          }
+      }
+
+      for (int i = 0; i < n; i++) {
+          grade[i] = grade[i] * 100 / max;
+      }
+
+      double sum = 0;  //changed!
+      for (int i = 0; i < n; i++) {
+          sum += grade[i];
+      }
+      System.out.println(sum / n);
+
+      sc.close();
+    }
+  }
+  ```
