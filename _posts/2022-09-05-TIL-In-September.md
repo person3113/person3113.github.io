@@ -233,3 +233,76 @@ last_modified_at: 2022-09-07
 - "코딩 테스트 문제풀이 강의 - 3 구간 합 구하기1 (백준11659)"
   - "받는 게 많을 때는, scanner보다 bufferdReader 사용하는 게 낫다."
   - "2번째 줄에 입력하는 수가 10만개면 매우 길게 옆으로 데이터가 들어옴 -> int형으로 받기 힘듦 -> StringTokenizer를 이용해서 값을 토큰으로 분리해가지고 사용"
+
+<br><br>
+
+# On 09/15 (Thu)
+
+## "Do it! 알고리즘 코딩테스트 자바 편"
+
+- "구간 합 구하기 2(문제 004,38p)(Baekjoon Online Judge: 1546번)"
+
+  - Two dimensional array: int[][] twoD_arr = new int[10][20]; Three dimensional array: int[][][] threeD_arr = new int[10][20][30];
+  - Today I only solved this problem, and I failed to solve it. Also, I didn't see the answer because of time constraint. The code I wrote is as follows.
+
+  ```java
+  import java.io.BufferedReader;
+  import java.io.IOException;
+  import java.io.InputStreamReader;
+  import java.util.StringTokenizer;
+
+  public class Main {
+      public static void main(String[] args) throws IOException {
+
+          // get n,m -> 2d array = new int[n][n]
+          BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+          StringTokenizer st = new StringTokenizer(br.readLine());
+          int n = Integer.parseInt(st.nextToken());
+          int m = Integer.parseInt(st.nextToken());
+          int[][] a = new int[n + 1][n + 1];
+
+          /*
+          * for(repeat for n times){
+          * get line in form of string -> convert string to int -> push these to 2d array
+          * }
+          */
+          for (int i = 1; i <= n; ++i) {
+              st = new StringTokenizer(br.readLine());
+              for (int j = 1; j <= n; ++j) {
+                  int tmp = Integer.parseInt(st.nextToken());
+                  a[i][j] = tmp;
+              }
+          }
+
+          // by row, get a sum array
+          int[][] rSum = new int[n + 1][n + 1];
+          for (int i = 1; i <= n; ++i) {
+              for (int j = 1; j <= n; ++j) {
+                  rSum[i][j] = rSum[i][j - 1] + a[i][j];
+              }
+          }
+
+          // get a line -> get x1,y1,x2,y2 -> get a sum in row from x1 to x2 at y1
+          // -> repeat the previous step by y2
+          // below code has a problem. time limit is 1 sec, so computations must be less
+          // than 100 million.
+          // however, in the worst case, the number of operations exceeds 100 million...
+          int x1, y1, x2, y2;
+          for (int i = 1; i <= m; ++i) {
+              st = new StringTokenizer(br.readLine());
+              x1 = Integer.parseInt(st.nextToken());
+              y1 = Integer.parseInt(st.nextToken());
+              x2 = Integer.parseInt(st.nextToken());
+              y2 = Integer.parseInt(st.nextToken());
+
+              int sum = 0;
+              for (int j = y1; j <= y2; ++j) {
+                  sum += rSum[j][x2] - rSum[j][x1 - 1];
+              }
+              System.out.println(sum);
+          }
+
+      }
+  }
+
+  ```
