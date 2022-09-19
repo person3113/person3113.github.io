@@ -240,7 +240,7 @@ last_modified_at: 2022-09-07
 
 ## "Do it! 알고리즘 코딩테스트 자바 편"
 
-- "구간 합 구하기 2(문제 004,38p)(Baekjoon Online Judge: 1546번)"
+- "구간 합 구하기 2(문제 004,38p)(Baekjoon Online Judge: 11660번)"
 
   - Two dimensional array: int[][] twoD_arr = new int[10][20]; Three dimensional array: int[][][] threeD_arr = new int[10][20][30];
   - Today I only solved this problem, and I failed to solve it. Also, I didn't see the answer because of time constraint. The code I wrote is as follows.
@@ -304,5 +304,28 @@ last_modified_at: 2022-09-07
 
       }
   }
-
   ```
+
+<br><br>
+
+# On 09/19 (Mon)
+
+## "Do it! 알고리즘 코딩테스트 자바 편"
+
+- "구간 합 구하기 2(문제 004,38p)(Baekjoon Online Judge: 11660번)"
+
+  - I was confused between rows and columns of 2D array, so fixing the code, and changed code is as follows:
+
+  ```java
+  // get a line -> get x1,y1,x2,y2 -> get a sum in row from y1 to y2 at x1
+  // -> repeat the previous step by x2
+
+  for (int j = x1; j <= x2; ++j) {
+      sum += rSum[j][y2] - rSum[j][y1 - 1];
+  }
+  ```
+
+  - however, the fixed codes exceed a time limit.
+
+- 나머지 합 구하기(문제 005,52p)(Baekjoon Online Judge: 10986번)
+  - I devoted my time to understanding the solution and explanation of this problem.
