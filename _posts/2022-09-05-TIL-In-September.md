@@ -329,3 +329,54 @@ last_modified_at: 2022-09-07
 
 - 나머지 합 구하기(문제 005,52p)(Baekjoon Online Judge: 10986번)
   - I devoted my time to understanding the solution and explanation of this problem.
+
+<br><br>
+
+# On 09/19 (Mon)
+
+## "Do it! 알고리즘 코딩테스트 자바 편"
+
+- "구간 합 구하기 2(문제 004,38p)(Baekjoon Online Judge: 11660번)"
+
+  - my codes got an error of ArrayIndexOutOfBounds or incorrect codes
+  - I dont't know why my codes is wrong and the codes of the book is correct, although my code and the code of the book seem similar.
+  - The last code I tried is as follows:
+
+  ```java
+  import java.util.Scanner;
+
+  public class Main {
+      public static void main(String[] args) {
+          Scanner sc = new Scanner(System.in);
+          int n = sc.nextInt();
+          int m = sc.nextInt();
+
+          int a[] = new int[n];
+          for (int i = 0; i < n; ++i) {
+              a[i] = sc.nextInt();
+          }
+
+          int s[] = new int[n];
+          int c[] = new int[m];
+          int ans = 0;
+          s[0] = a[0];
+          for (int i = 1; i < n; ++i) {
+              s[i] = s[i - 1] + a[i];
+          }
+          for (int i = 0; i < n; ++i) {
+              int remainder = (int) (s[i] % m);
+              if (remainder == 0)
+                  ++ans;
+              c[remainder]++;
+          }
+
+          for (int i = 0; i < m; ++i) {
+              if (c[i] > 1) {
+                  ans += c[i] * (c[i] - 1) / 2;
+              }
+          }
+          System.out.println(ans);
+          sc.close();
+      }
+  }
+  ```
