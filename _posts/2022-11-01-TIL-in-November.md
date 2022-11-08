@@ -25,6 +25,8 @@ last_modified_at: 2022-11-01
   - ["구간 합"](https://youtu.be/O514yiWg8YE)
   - ["문제 003 풀이"](https://youtu.be/JSfXW7UJ04Y)
 
+<br><br>
+
 # On 11/06 (Sun)
 
 ## "Do it! 알고리즘 코딩테스트 자바 편"
@@ -34,3 +36,15 @@ last_modified_at: 2022-11-01
 - "나머지 합 구하기(문제 005, 52p~55p)(Baekjoon Online Judge: 10986번)"
 - I studied these problems with the book
 - I couldn't solve "나머지 합 구하기". when I test my code through Baekjoon Online Judge, it said ArrayIndexOutofBounds excepion. However, I couldn't find why this excepion occurs.
+
+<br><br>
+
+# On 11/08 (Tue)
+
+## "Do it! 알고리즘 코딩테스트 자바 편"
+
+- "연속된 자연수의 합 구하기(문제 006 / Baekjoon: 11659번)"
+- "주몽의 명령(문제 007 / Baekjoon Online Judge: 11660번)"
+- Reference Materials
+  - ["문제 006 강의"](https://youtu.be/ZovjkF2DzIs)
+  - ["문제 007 강의"](https://youtu.be/BA8zkffKc88)
