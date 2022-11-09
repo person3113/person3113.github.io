@@ -48,3 +48,11 @@ last_modified_at: 2022-11-01
 - Reference Materials
   - ["문제 006 강의"](https://youtu.be/ZovjkF2DzIs)
   - ["문제 007 강의"](https://youtu.be/BA8zkffKc88)
+
+<br><br>
+
+# On 11/09 (Wed)
+
+## "Do it! 알고리즘 코딩테스트 자바 편"
+
+- "좋은 수 구하기(문제 008 / Baekjoon: 1253번)"
