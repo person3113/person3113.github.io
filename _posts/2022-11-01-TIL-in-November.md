@@ -5,7 +5,7 @@ excerpt: "The log that I learned what is related with programming in November 20
 categories:
   - TIL
 tags:
-  - [TIL, Java, VSCode]
+  - [TIL, Java]
 
 toc: true
 toc_sticky: false
