@@ -1,11 +1,11 @@
 ---
 title: "[TIL] December In 2022"
-excerpt: "The log that I learned what is related with programming in November 2022"
+excerpt: "The log that I learned what is related with programming in December 2022"
 
 categories:
   - TIL
 tags:
-  - [TIL, Java]
+  - [TIL, Java, CodingTest]
 
 toc: true
 toc_sticky: false
