@@ -1,5 +1,5 @@
 ---
-title: "Blog Dev"
+title: "Dev Blog"
 layout: archive
 permalink: categories/Blog
 author_profile: true
