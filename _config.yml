@@ -15,12 +15,12 @@
 minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
-locale: "en-US"
-title: "What I Learned Today"
+locale: "ko-KR"
+title: "Person3113's Blog"
 title_separator: "-"
 subtitle: # site tagline that appears below site title in masthead
-name: "Sungoh-Jung"
-description: "The Blog on which I log what I learned today and my thought about that."
+name: "Person3113"
+description: "제가 배운 내용을 기록하기 위해 운영하는 개발 블로그입니다."
 url: # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl: # the subpath of your site, e.g. "/blog"
 repository: # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -59,8 +59,8 @@ reCaptcha:
 atom_feed:
   path: # blank (default) uses feed.xml
   hide: # true, false (default)
-search: # true, false (default)
-search_full_content: # true, false (default)
+search: true # true, false (default)
+search_full_content: true # true, false (default)
 search_provider: # lunr (default), algolia, google
 lunr:
   search_within_pages: # true, false (default)
@@ -103,15 +103,15 @@ analytics:
 
 # Site Author
 author:
-  name: "Sungoh-Jung"
-  avatar: # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio: "I will do **continuous learning** until I die!!"
-  location: "Korea"
+  name: "person3113"
+  avatar: "/assets/images/avatar.jpg"
+  bio: "늙어서 은퇴하기 전까진 **계속 공부**하자!!"
+  location:
   email:
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      # url: "mailto:your.name@email.com"
+      # url: mailto:person3113@gmail.com
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
@@ -123,7 +123,7 @@ author:
       # url: "https://facebook.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url: "https://github.com/"
+      url: "https://github.com/person3113/"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
@@ -276,8 +276,8 @@ defaults:
     values:
       layout: single
       author_profile: true
-      read_time: true
-      comments: # true
+      read_time: false
+      comments: true
       share: true
       related: true
       sidebar_main: true

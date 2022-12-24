@@ -1,7 +1,7 @@
 <!--
 > 기존의 post_pagination 내용을 전부 지우고 아래 사이트 내용으로 교체함
 > 단 난 _navigation.scss 파일 속에 pagination_prev_next 클래스를 새로 만들어서 사용하기 대신 그냥 pagination 속 "next/previous buttons" 을 담당하는 pager 부분을 손봤다.
-> pager 안에서 float: left; 를 없애고 width 를 100 % 로 변경해주기만 했다.
+> pager 안에서 float: left; 를 없애고 width 를 100 % 로 변경해주었다.
 > 참고 사이트: https://ansohxxn.github.io/blog/prevnext/
 -->
 {% assign cat = page.categories[0] %}
@@ -23,12 +23,12 @@
 {% if prev_post or next_post %}
   <nav class="pagination">
     {% if prev_post %}
-      <a href="{{ prev_post.url }}" class="pagination--pager"><span class="prev_next">이전 글  &nbsp</span>{{ prev_post.title }}</a>
+      <a href="{{ prev_post.url }}" class="pagination--pager">이전 글 / &nbsp{{ prev_post.title }}</a>
     {% else %}
       <a href="#" class="pagination--pager disabled">첫 번째 글입니다</a>
     {% endif %}
     {% if next_post %}
-      <a href="{{ next_post.url }}" class="pagination--pager"><span class="prev_next">다음 글  &nbsp  </span>{{ next_post.title }}</a>
+      <a href="{{ next_post.url }}" class="pagination--pager">다음 글 / &nbsp{{ next_post.title }}</a>
     {% else %}
       <a href="#" class="pagination--pager disabled">가장 최근 글입니다</a>
     {% endif %}

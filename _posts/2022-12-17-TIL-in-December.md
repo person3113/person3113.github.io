@@ -8,7 +8,7 @@ tags:
   - [TIL, Java, CodingTest]
 
 toc: true
-toc_sticky: false
+toc_sticky: true
 
 date: 2022-12-17
 last_modified_at: 2022-12-24

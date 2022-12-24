@@ -8,7 +8,7 @@ tags:
   - [TIL, Java]
 
 toc: true
-toc_sticky: false
+toc_sticky: true
 
 date: 2022-11-01
 last_modified_at: 2022-11-01
