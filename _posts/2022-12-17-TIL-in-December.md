@@ -11,7 +11,7 @@ toc: true
 toc_sticky: true
 
 date: 2022-12-17
-last_modified_at: 2022-12-24
+last_modified_at: 2022-12-25
 ---
 
 <br><br>
@@ -51,3 +51,15 @@ last_modified_at: 2022-12-24
 - "연결 요소의 개수 구하기(문제 023 / Baekjoon: 11724번)"
 - "신기한 소수 찾기(문제 024 / Baekjoon: 2023번)"
 - "친구 관계 파악하기(문제 025 / Baekjoon: 13023번)"
+
+<br><br>
+
+# On 12/25 (Sun)
+
+## "Do it! 알고리즘 코딩테스트 자바 편"
+
+- "DFS와 BFS 프로그램(문제 026 / Baekjoon: 1260번)"
+- "미로 탐색하기(문제 027 / Baekjoon: 2178번)"
+- "트리의 지름 구하기(문제 028 / Baekjoon: 1167번)"
+- "원하는 정수 찾기(문제 029 / Baekjoon: 1920번)"
+- "블루레이 만들기(문제 030 / Baekjoon: 2343번)"

@@ -1,5 +1,5 @@
 ---
-title: "[BlogDev] 제대 후 다 까먹은 나를 위해... 깃허브 블로그(minimal-mistakes) 유지보수에 도움이 되는 정보들"
+title: "[BlogDev] 제대 후 다 까먹을 나를 위해... 깃허브 블로그(minimal-mistakes) 유지보수에 도움이 되는 정보들"
 excerpt: "계속해서 사용하면서 도움이 될 것 같은 정보를 발견할 때마다 업데이트"
 
 categories:
