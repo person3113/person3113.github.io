@@ -1,7 +1,8 @@
-{% if site.tag_archive.type and page.tags[0] %}
-  {% include tag-list.html %}
-{% endif %}
-
+<br>
 {% if site.category_archive.type and page.categories[0] %}
   {% include category-list.html %}
+{% endif %}
+
+{% if site.tag_archive.type and page.tags[0] %}
+  {% include tag-list.html %}
 {% endif %}

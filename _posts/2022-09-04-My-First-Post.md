@@ -5,7 +5,7 @@ excerpt: "making blog's content first in my life, I'm so happy"
 categories:
   - Blog
 tags:
-  - [Blog, jekyll, Github]
+  - [Blog, minimal-mistakes, Github]
 
 toc: true
 toc_sticky: true
@@ -13,6 +13,8 @@ toc_sticky: true
 date: 2022-09-04
 last_modified_at: 2022-09-05
 ---
+
+<br><br>
 
 # 1. The reason I start github blog
 

@@ -14,6 +14,8 @@ date: 2022-09-05
 last_modified_at: 2022-09-07
 ---
 
+<br><br>
+
 # On 09/05 (Mon)
 
 ## "생활코딩 JAVA 입문 수업"

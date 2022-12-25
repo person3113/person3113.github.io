@@ -12,6 +12,21 @@
   <head>
     {% include head.html %}
     {% include head/custom.html %}
+    <!--
+    > 스크롤바 꾸미는 부분  
+    > 아래 출처에서 색깔만 바꾸고 복붙한 것  
+    > 출처: https://ansohxxn.github.io/blog/scrollbar/
+    -->
+    <style> 
+      ::-webkit-scrollbar{width: 16px;}
+      ::-webkit-scrollbar-track {background-color:#FFFFFF; border-radius: 16px;}
+      ::-webkit-scrollbar-thumb {background-color:#5e6265; border-radius: 16px;}
+      ::-webkit-scrollbar-thumb:hover {background:#4E91A5 ;}
+      ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment 
+      {
+          width:12px;height:12px;background:transparent;}
+      
+    </style>
   </head>
 
   <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">

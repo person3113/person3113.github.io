@@ -14,6 +14,8 @@ date: 2022-12-20
 last_modified_at: 2022-12-23
 ---
 
+<br><br>
+
 # 1. Doing 9 ~ 10 hours a day consistently during vacation
 
 - Quantity takes precedence over quality in this vacation. Because I have to broaden my perspective by encountering many different things.
