@@ -5,7 +5,7 @@ excerpt: "계속해서 사용하면서 도움이 될 것 같은 정보를 발견
 categories:
   - BlogDev
 tags:
-  - [BlogDev, minimal-mistakes, Github]
+  - [Blog Development, minimal-mistakes, Github]
 
 toc: true
 toc_sticky: true

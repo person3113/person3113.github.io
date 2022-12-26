@@ -75,6 +75,7 @@ body {
   a {
     color: $text-color;
     text-decoration: none;
+    line-height: normal;
   }
 
   & + .page__meta {

@@ -5,7 +5,7 @@ excerpt: "The log that I learned what is related with programming in December 20
 categories:
   - TIL
 tags:
-  - [TIL, Java, CodingTest]
+  - [TIL, Java, Coding Test, JavaLecture]
 
 toc: true
 toc_sticky: true
@@ -63,3 +63,19 @@ last_modified_at: 2022-12-25
 - "트리의 지름 구하기(문제 028 / Baekjoon: 1167번)"
 - "원하는 정수 찾기(문제 029 / Baekjoon: 1920번)"
 - "블루레이 만들기(문제 030 / Baekjoon: 2343번)"
+
+<br><br>
+
+# On 12/26 (Mon)
+
+## "Do it! 알고리즘 코딩테스트 자바 편"
+
+- "배열에서 K번째 수 찾기(문제 031 / Baekjoon: 1300번)"
+- "동전 개수의 최솟값 구하기(문제 032 / Baekjoon: 11047번)"
+- "카드 정렬하기(문제 033 / Baekjoon: 1715번)"
+
+<br>
+
+## "Do it! 자바 프로그래밍 입문"
+
+- <1. 자바 기본 익히기>에서 <2. 자바의 핵심 - 객체지향 프로그래밍>의 <클래스와 객체1 (3)>까지

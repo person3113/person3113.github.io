@@ -5,7 +5,7 @@ excerpt: "요즘 흐름 / 블로그 작성 이유와 용도 / 블로그 쓰는 �
 categories:
   - BlogDev
 tags:
-  - [BlogDev]
+  - [Blog Development]
 
 toc: true
 toc_sticky: true
