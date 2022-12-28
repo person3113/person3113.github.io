@@ -5,7 +5,7 @@ excerpt: "변수와 자료형 / 클래스와 객체1"
 categories:
   - JavaLecture
 tags:
-  - [JavaLecture]
+  - [Java]
 
 toc: true
 toc_sticky: true
@@ -128,7 +128,3 @@ last_modified_at: 2022-12-26
     - 조건: 메소드 이름은 같되, 매개변수의 개수나, 타입이 달라야 한다.
     - ex) 하나의 클래스 안에 `public Student(){}` 생성자와 `public Student(int id){~ 구현 ~}` 생성자가 동시에 있을 경우
       - 위 예시처럼 되어있다면, `Student s = new Student();`나 `Student s = new Student(id값);` 중 아무거나 써도 된다.
-
-<br>
-
-## 클래스와 객체1 (4)

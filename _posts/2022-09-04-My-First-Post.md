@@ -5,7 +5,7 @@ excerpt: "making blog's content first in my life, I'm so happy"
 categories:
   - Blog
 tags:
-  - [Blog, minimal-mistakes, Github]
+  - [minimal-mistakes, Github]
 
 toc: true
 toc_sticky: true

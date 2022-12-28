@@ -5,13 +5,13 @@ excerpt: "The log that I learned what is related with programming in December 20
 categories:
   - TIL
 tags:
-  - [TIL, Java, Coding Test, JavaLecture]
+  - [Java, Coding Test]
 
 toc: true
 toc_sticky: true
 
 date: 2022-12-17
-last_modified_at: 2022-12-25
+last_modified_at: 2022-12-28
 ---
 
 <br><br>
@@ -74,8 +74,19 @@ last_modified_at: 2022-12-25
 - "동전 개수의 최솟값 구하기(문제 032 / Baekjoon: 11047번)"
 - "카드 정렬하기(문제 033 / Baekjoon: 1715번)"
 
-<br>
-
 ## "Do it! 자바 프로그래밍 입문"
 
 - <1. 자바 기본 익히기>에서 <2. 자바의 핵심 - 객체지향 프로그래밍>의 <클래스와 객체1 (3)>까지
+
+<br><br>
+
+# On 12/28 (Wed)
+
+## "Do it! 알고리즘 코딩테스트 자바 편"
+
+- "수를 묶어서 최댓값 만들기(문제 034 / 백준: 1744번)"
+- "회의실 배정하기(문제 035 / 백준: 1931번)"
+
+## "Do it! 자바 프로그래밍 입문"
+
+- <2. 자바의 핵심 - 객체지향 프로그래밍>의 <클래스와 객체1 (4)>부터 <객체 배열 사용하기(2)>까지

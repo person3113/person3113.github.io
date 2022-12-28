@@ -5,13 +5,13 @@ excerpt: "the plan from December 23rd to January 29th / I will be enlisted at Fe
 categories:
   - Blog
 tags:
-  - [Blog]
+  - []
 
 toc: true
 toc_sticky: true
 
 date: 2022-12-20
-last_modified_at: 2022-12-23
+last_modified_at: 2022-12-27
 ---
 
 <br><br>
@@ -34,7 +34,5 @@ last_modified_at: 2022-12-23
 # 3. Studying Coding Test
 
 - By Sunday, January 22th
-  - Studying a coding test textbook from soup to nuts.
-- at Sunday, January 23th
-  - trying to solve problems of the "제 9회 한양대학교 프로그래밍 경시대회 (HCPC) Open Contest Beginner Division" in Baekjoon.
-  - This is because it is an opportunity to assess my level.
+  - ~~Studying a coding test textbook from soup to nuts.~~
+  - 70번까지를 목표로(최소 66번까지는 꼭 풀기)
