@@ -11,7 +11,7 @@ toc: true
 toc_sticky: true
 
 date: 2022-12-20
-last_modified_at: 2022-12-27
+last_modified_at: 2022-12-30
 ---
 
 <br><br>
@@ -22,12 +22,10 @@ last_modified_at: 2022-12-27
 
 <br>
 
-# 2. Watching lectures and creating a personal project based on what I learned during this vacation
+# 2. Watching lectures
 
 - By Sunday, January 22th
   - Learning by watching multiple lecture videos (to complete at least one lecture per week)
-- By Sunday, January 29th
-  - Based on what I learned, I'll study more and make a personal project.
 
 <br>
 
