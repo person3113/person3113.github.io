@@ -11,7 +11,7 @@ toc: true
 toc_sticky: true
 
 date: 2022-12-20
-last_modified_at: 2022-12-30
+last_modified_at: 2023-01-01
 ---
 
 <br><br>
@@ -25,7 +25,8 @@ last_modified_at: 2022-12-30
 # 2. Watching lectures
 
 - By Sunday, January 22th
-  - Learning by watching multiple lecture videos (to complete at least one lecture per week)
+  - Learning by watching multiple lecture videos
+  - 자바, 스프링, SQL DB 관련 강의를 볼 예정.
 
 <br>
 
