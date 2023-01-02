@@ -11,7 +11,7 @@ toc: true
 toc_sticky: true
 
 date: 2022-12-20
-last_modified_at: 2023-01-01
+last_modified_at: 2023-01-02
 ---
 
 <br><br>
@@ -25,13 +25,12 @@ last_modified_at: 2023-01-01
 # 2. Watching lectures
 
 - By Sunday, January 22th
-  - Learning by watching multiple lecture videos
-  - 자바, 스프링, SQL DB 관련 강의를 볼 예정.
+  - 여러 강의를 찾고 보면서 다양하게 배우기
+  - 자바, 스프링(/스프링, /MVC, /DB), SQL DB 관련 강의를 볼 예정.
 
 <br>
 
 # 3. Studying Coding Test
 
 - By Sunday, January 22th
-  - ~~Studying a coding test textbook from soup to nuts.~~
   - 70번까지를 목표로(최소 66번까지는 꼭 풀기)
