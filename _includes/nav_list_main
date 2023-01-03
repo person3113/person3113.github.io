@@ -41,6 +41,16 @@
         </li>
         {% endif %} {% endfor %}
       </ul>
+      <ul>
+        {% for category in site.categories %} {% if category[0] ==
+        "SpringLecture" %}
+        <li>
+          <a href="/categories/SpringLecture" class=""
+            >Spring Lecture ({{ category[1].size }})</a
+          >
+        </li>
+        {% endif %} {% endfor %}
+      </ul>
     </li>
 
     <li>
