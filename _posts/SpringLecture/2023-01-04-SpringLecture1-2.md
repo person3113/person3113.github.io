@@ -12,7 +12,7 @@ toc_sticky: true
 toc_label: "페이지 주요 목차"
 
 date: 2023-01-04
-last_modified_at: 2023-01-04
+last_modified_at: 2023-01-05
 ---
 
 <br>
@@ -48,7 +48,8 @@ last_modified_at: 2023-01-04
 
 ### 키워드
 
-테스트 사고흐름(given, when, then), 의존관계 주입(Dependency Injection, DI)
+- 테스트 사고흐름(given, when, then)
+- 의존관계 주입(Dependency Injection, DI)
 
 ### 의문점
 
@@ -68,7 +69,10 @@ last_modified_at: 2023-01-04
 
 ### 키워드
 
-스프링 컨테이너와 컨트롤러(스프링 빈), 스프링 빈 등록(컴포넌트 스캔 / @Controller, @Service, @Repository), @Autowired(DI, 의존성 주입), 싱글톤
+- 스프링 컨테이너와 컨트롤러(스프링 빈)
+- 스프링 빈 등록(컴포넌트 스캔 / @Controller, @Service, @Repository)
+- @Autowired(DI, 의존성 주입)
+- 싱글톤
 
 <br>
 
@@ -76,7 +80,8 @@ last_modified_at: 2023-01-04
 
 ### 키워드
 
-@Configuration, @Bean, DI 방법(필드 주입, setter 주입, 생성자 주입)
+- @Configuration, @Bean
+- DI 방법(필드 주입, setter 주입, 생성자 주입)
 
 <br><br>
 
@@ -90,7 +95,8 @@ last_modified_at: 2023-01-04
 
 ### 키워드
 
-html(form, input 태그), get과 post방식
+- html(form, input 태그)
+- get과 post방식
 
 ### 의문점
 
@@ -161,7 +167,8 @@ html(table 관련 태그)
 
 ### 키워드
 
-개방-폐쇄 원칙(OCP, Open-Closed Principle), DI (Dependencies Injection)
+- 개방-폐쇄 원칙(OCP, Open-Closed Principle)
+- DI (Dependencies Injection)
 
 <br>
 
@@ -169,4 +176,4 @@ html(table 관련 태그)
 
 ### 키워드
 
-@SpringBootTest, @Transactional(테스트 케이스, rollback)
+- @SpringBootTest, @Transactional(테스트 케이스, rollback)

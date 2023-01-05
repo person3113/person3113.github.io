@@ -12,7 +12,7 @@ toc_sticky: true
 toc_label: "페이지 주요 목차"
 
 date: 2023-01-03
-last_modified_at: 2023-01-03
+last_modified_at: 2023-01-05
 ---
 
 <br>
@@ -56,7 +56,9 @@ last_modified_at: 2023-01-03
 
 ### 키워드
 
-라이브러리 의존관계, 빌드 관리 도구, log(logback, slf4j), test(junit)
+- 라이브러리 의존관계
+- 빌드 관리 도구
+- log(logback, slf4j), test(junit)
 
 <br>
 
@@ -64,7 +66,9 @@ last_modified_at: 2023-01-03
 
 ### 키워드
 
-Welcome Page(index.html), thymeleaf 템플릿 엔진, viewResolver
+- Welcome Page(index.html)
+- thymeleaf 템플릿 엔진
+- viewResolver
 
 <br>
 
@@ -72,7 +76,7 @@ Welcome Page(index.html), thymeleaf 템플릿 엔진, viewResolver
 
 ### 키워드
 
-빌드, 배포
+- 빌드, 배포
 
 ### 의문점
 
@@ -96,7 +100,9 @@ Welcome Page(index.html), thymeleaf 템플릿 엔진, viewResolver
 
 ### 키워드
 
-정적 컨텐츠(HTML 그대로), MVC(Model View Controller)와 템플릿 엔진(HTML 동적으로), API(json 데이터 포멧으로 전달)
+- 정적 컨텐츠(HTML 그대로)
+- MVC(Model View Controller)와 템플릿 엔진(HTML 동적으로)
+- API(json 데이터 포멧으로 전달)
 
 <br>
 
@@ -104,7 +110,7 @@ Welcome Page(index.html), thymeleaf 템플릿 엔진, viewResolver
 
 ### 키워드
 
-@RequestParam("name") String name
+- @RequestParam("name") String name
 
 <br>
 
@@ -112,7 +118,8 @@ Welcome Page(index.html), thymeleaf 템플릿 엔진, viewResolver
 
 ### 키워드
 
-@ResponseBody, 객체를 json으로 반환
+- @ResponseBody
+- 객체를 json으로 반환
 
 ### 의문점
 
@@ -129,7 +136,7 @@ Welcome Page(index.html), thymeleaf 템플릿 엔진, viewResolver
 
 ### 키워드
 
-웹 애플리케이션 계층 구조(컨트롤러, 서비스, 리포지토리, 도메인)
+- 웹 애플리케이션 계층 구조(컨트롤러, 서비스, 리포지토리, 도메인)
 
 <br>
 
@@ -162,4 +169,4 @@ Welcome Page(index.html), thymeleaf 템플릿 엔진, viewResolver
 
 ### 키워드
 
-테스트 주도 개발(test-driven development, TDD)
+- 테스트 주도 개발(test-driven development, TDD)
