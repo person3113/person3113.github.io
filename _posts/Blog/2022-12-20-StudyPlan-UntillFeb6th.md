@@ -11,7 +11,7 @@ toc: true
 toc_sticky: true
 
 date: 2022-12-20
-last_modified_at: 2023-01-02
+last_modified_at: 2023-01-08
 ---
 
 <br><br>
@@ -22,10 +22,10 @@ last_modified_at: 2023-01-02
 
 <br>
 
-# 2. Watching lectures
+# 2. 여러 강의와 프로젝트 찾으면서 배우기
 
 - By Sunday, January 22th
-  - 여러 강의를 찾고 보면서 다양하게 배우기
+  - 여러 강의와 여러 프로젝트를 찾고 보면서 다양하게 배우기
   - 자바, 스프링(/스프링, /MVC, /DB), SQL DB 관련 강의를 볼 예정.
 
 <br>

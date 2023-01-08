@@ -29,24 +29,24 @@
     </li>
 
     <li>
-      <span class="nav__sub-title">Java</span>
+      <span class="nav__sub-title">Learning Back-End</span>
       <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
       <ul>
-        {% for category in site.categories %} {% if category[0] == "JavaLecture"
-        %}
+        {% for category in site.categories %} {% if category[0] ==
+        "Learning-Java" %}
         <li>
-          <a href="/categories/JavaLecture" class=""
-            >Java Lecture ({{ category[1].size }})</a
+          <a href="/categories/Learning-Java" class=""
+            >Learning Java ({{ category[1].size }})</a
           >
         </li>
         {% endif %} {% endfor %}
       </ul>
       <ul>
         {% for category in site.categories %} {% if category[0] ==
-        "SpringLecture" %}
+        "Learning-Spring" %}
         <li>
-          <a href="/categories/SpringLecture" class=""
-            >Spring Lecture ({{ category[1].size }})</a
+          <a href="/categories/Learning-Spring" class=""
+            >Learning Spring ({{ category[1].size }})</a
           >
         </li>
         {% endif %} {% endfor %}

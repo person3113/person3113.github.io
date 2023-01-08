@@ -3,9 +3,9 @@ title: "[스프링 입문(김영한)] '프로젝트 생성' ~ '회원 리포지�
 excerpt: "프로젝트 환경설정 / 스프링 웹 개발 기초 / 회원 관리 예제 - 백엔드 개발"
 
 categories:
-  - SpringLecture
+  - Learning-Spring
 tags:
-  - [Spring]
+  - [Spring Lecture]
 
 toc: true
 toc_sticky: true

@@ -1,11 +1,11 @@
 ---
-title: "[Do it! 자바 프로그래밍 입문] <클래스와 객체1 (4)> ~  <객체 배열 사용하기(2)>"
+title: "■ [Do it! 자바 프로그래밍 입문] <클래스와 객체1 (4)> ~  <객체 배열 사용하기(2)>"
 excerpt: "클래스와 객체1 / 클래스와 객체2 / 배열"
 
 categories:
-  - JavaLecture
+  - Learning-Java
 tags:
-  - [Java]
+  - [Java Lecture]
 
 toc: true
 toc_sticky: true

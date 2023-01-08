@@ -3,9 +3,9 @@ title: "[스프링 입문(김영한)] '스프링 JdbcTemplate' ~ '다음으로'"
 excerpt: "스프링 DB 접근 기술 / AOP / 다음으로"
 
 categories:
-  - SpringLecture
+  - Learning-Spring
 tags:
-  - [Spring]
+  - [Spring Lecture]
 
 toc: true
 toc_sticky: true

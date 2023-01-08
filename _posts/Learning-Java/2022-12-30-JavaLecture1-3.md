@@ -1,11 +1,11 @@
 ---
-title: "[Do it! 자바 프로그래밍 입문] <다차원 배열(3)> ~  <오버라이딩과 다형성(3)>"
+title: "■ [Do it! 자바 프로그래밍 입문] <다차원 배열(3)> ~  <오버라이딩과 다형성(3)>"
 excerpt: "배열 / 상속과 다형성"
 
 categories:
-  - JavaLecture
+  - Learning-Java
 tags:
-  - [Java]
+  - [Java Lecture]
 
 toc: true
 toc_sticky: true

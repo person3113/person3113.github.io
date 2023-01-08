@@ -3,9 +3,9 @@ title: "[스프링 입문(김영한)] '회원 서비스 개발' ~ '스프링 통
 excerpt: "3. 회원 관리 예제 - 백엔드 개발 / 스프링 빈과 의존관계 / 스프링 DB 접근 기술"
 
 categories:
-  - SpringLecture
+  - Learning-Spring
 tags:
-  - [Spring]
+  - [Spring Lecture]
 
 toc: true
 toc_sticky: true
