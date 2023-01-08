@@ -1,5 +1,5 @@
 ---
-title: "■ [Do it! 자바 프로그래밍 입문] <인터페이스와 다형성 구현(2)> ~  <컬렉션 프레임워크 - Stack, Queue, HashSet>"
+title: "[Do it! 자바 프로그래밍 입문] <인터페이스와 다형성 구현(2)> ~  <컬렉션 프레임워크 - Stack, Queue, HashSet>"
 excerpt: "인터페이스 / 기본 클래스 / 제너릭 프로그래밍 / 컬렉션 프레임워크(ArrayList, Stack, Queue, HashSet)"
 
 categories:
