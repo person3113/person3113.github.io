@@ -17,6 +17,13 @@ last_modified_at: 2023-01-09
 
 <br>
 
+# 블로그 유지보수 및 개선할 때 정보 찾기
+
+- [공식 사이트](https://mmistakes.github.io/minimal-mistakes/docs/configuration/)를 적극 참고하기
+- 단순히 블로그에 있는 정보만으로는 부족할 때가 많음
+
+<br><br>
+
 # 사이드바(카테고리) 항목 추가
 
 ## 같은 카테고리만 모아두는 페이지 추가
