@@ -5,7 +5,7 @@ excerpt: "The log that I learned what is related with programming in september 2
 categories:
   - TIL
 tags:
-  - [Java, VSCode, Coding Test]
+  - []
 
 toc: true
 toc_sticky: true

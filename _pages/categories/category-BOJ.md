@@ -1,10 +1,10 @@
 ---
-title: "Do It! Java Algorithm Coding Test"
+title: "Baekjoon Online Judge"
 layout: archive
-permalink: categories/DoItJava
+permalink: categories/BOJ
 author_profile: true
 sidebar_main: true
 ---
 
-{% assign posts = site.categories.DoItJava %}
+{% assign posts = site.categories.BOJ %}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
