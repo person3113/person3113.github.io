@@ -5,7 +5,7 @@ excerpt: "프로젝트 환경설정 / 스프링 웹 개발 기초 / 회원 관�
 categories:
   - Learning-Spring
 tags:
-  - [Spring Lecture]
+  - [Spring Boot]
 
 toc: true
 toc_sticky: true

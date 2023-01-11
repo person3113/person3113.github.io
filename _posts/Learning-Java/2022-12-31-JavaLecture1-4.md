@@ -5,7 +5,7 @@ excerpt: "추상클래스 / 인터페이스"
 categories:
   - Learning-Java
 tags:
-  - [Java Lecture]
+  - []
 
 toc: true
 toc_sticky: true

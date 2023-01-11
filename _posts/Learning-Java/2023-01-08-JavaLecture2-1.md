@@ -5,7 +5,7 @@ excerpt: "쓰레드의 개념과 필요성 / Thread의 생성 및 실행방법 /
 categories:
   - Learning-Java
 tags:
-  - [Java Lecture]
+  - []
 
 toc: true
 toc_sticky: true

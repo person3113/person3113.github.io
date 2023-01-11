@@ -5,7 +5,7 @@ excerpt: "배열 / 상속과 다형성"
 categories:
   - Learning-Java
 tags:
-  - [Java Lecture]
+  - []
 
 toc: true
 toc_sticky: true

@@ -5,7 +5,7 @@ excerpt: "인터페이스 / 기본 클래스 / 제너릭 프로그래밍 / 컬�
 categories:
   - Learning-Java
 tags:
-  - [Java Lecture]
+  - []
 
 toc: true
 toc_sticky: true

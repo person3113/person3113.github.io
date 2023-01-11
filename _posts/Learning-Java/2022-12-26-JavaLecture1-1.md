@@ -5,7 +5,7 @@ excerpt: "변수와 자료형 / 클래스와 객체1"
 categories:
   - Learning-Java
 tags:
-  - [Java Lecture]
+  - []
 
 toc: true
 toc_sticky: true

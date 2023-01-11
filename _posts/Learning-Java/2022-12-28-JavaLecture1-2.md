@@ -5,7 +5,7 @@ excerpt: "클래스와 객체1 / 클래스와 객체2 / 배열"
 categories:
   - Learning-Java
 tags:
-  - [Java Lecture]
+  - []
 
 toc: true
 toc_sticky: true

@@ -5,7 +5,7 @@ excerpt: "3. 회원 관리 예제 - 백엔드 개발 / 스프링 빈과 의존�
 categories:
   - Learning-Spring
 tags:
-  - [Spring Lecture]
+  - [Spring Boot]
 
 toc: true
 toc_sticky: true

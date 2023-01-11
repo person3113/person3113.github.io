@@ -11,7 +11,7 @@ toc: true
 toc_sticky: true
 
 date: 2022-12-20
-last_modified_at: 2023-01-08
+last_modified_at: 2023-01-11
 ---
 
 <br><br>
@@ -33,4 +33,4 @@ last_modified_at: 2023-01-08
 # 3. Studying Coding Test
 
 - By Sunday, January 22th
-  - 70번까지를 목표로(최소 66번까지는 꼭 풀기)
+  - 83번까지를 목표로

@@ -5,7 +5,7 @@ excerpt: "스프링 DB 접근 기술 / AOP / 다음으로"
 categories:
   - Learning-Spring
 tags:
-  - [Spring Lecture]
+  - [Spring Boot]
 
 toc: true
 toc_sticky: true

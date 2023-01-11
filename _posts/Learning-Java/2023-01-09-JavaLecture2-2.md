@@ -5,7 +5,7 @@ excerpt: "쓰레드 동기화 / 쓰레드의 상태 #1 / 쓰레드의 상태 #2"
 categories:
   - Learning-Java
 tags:
-  - [Java Lecture]
+  - []
 
 toc: true
 toc_sticky: true
