@@ -728,3 +728,591 @@ public class Calc extends HttpServlet {
 
 }
 ```
+
+<br><br>
+
+# 강의 24 - 입력 데이터 배열로 받기
+
+- 가변적인 길이, 개수를 여러 개 보낼 때는 같은 이름으로 다 보낼 수 있다. 같은 이름으로 맞추면 배열로 전달된다.
+- add2.html
+
+```html
+<form action="add2" method="post">
+  <div>
+    <input name="num" type="text" />
+    <input name="num" type="text" />
+    <input name="num" type="text" />
+    <input name="num" type="text" />
+  </div>
+  <div>
+    <input type="submit" value="덧셈" />
+  </div>
+  <div>결과: 0</div>
+</form>
+```
+
+- `String[] num_=request.getParameterValues("num");`: 배열로 받으니까 getParameter()가 아니라 getParameterValues()로 받기
+- Add2.java
+
+```java
+@WebServlet("/add2")
+public class Add2 extends HttpServlet {
+
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
+		String[] num_=request.getParameterValues("num");
+
+		int result=0;
+		for(int i=0;i<num_.length;i++) {
+			int num=Integer.parseInt(num_[i]);
+			result+=num;
+		}
+
+		response.getWriter().printf("result is %d\n", result);
+	}
+
+}
+```
+
+<br><br>
+
+# 강의 25 - 상태 유지를 필요로 하는 경우와 구현의 어려움
+
+- 사용자로부터 두 개의 값을 하나씩 개별적으로 입력받는 상황
+  - 우리가 클라이언트에서 버튼을 누르게 되면, 서버 프로그램은 잠깐 실행되었다가 종료됨. 그럼 전달받은 값을 어딘가에 기록해야 한다. 그래야 다시 입력받아 서블릿이 실행되면 기록한 값을 가지고 처리할 수 있음
+- 상태 유지를 위한 5가지 방법
+  - application, session, cookie: 값을 담아놓을 수 있는 곳
+  - hidden input, querystring: 나중에 다룰 예정
+- 예제 실습은 다음 강의에서 자세히 다뤄서 생략
+
+<br><br>
+
+# 강의 26 - Application 객체와 그것을 사용한 상태 값 저장
+
+- 서블릿을 사용할 때 데이터를 이어갈 수 있는 저장소가 필요한데, 이를 서블릿 컨텍스트(context)라고 한다. 즉 서블릿 간에 문맥(컨텍스트)를 이어갈 수 있는 공간(상태 저장 공간)이라는 뜻. 이곳을 어플리케이션 저장소라고 말하기도 한다.
+
+- `ServletContext application=request.getServletContext();`: 어플리케션 저장소를 생성
+- application에는 두 가지를 저장(v, operator)
+  - 예시: `application.setAttribute("value", v);`
+  - 키하고 값을 넣는 함수. 맵 컬렉션이라고 생각하면 됨.
+- 그 다음 전달받은 연산자가 +,-,= 중에 뭔지 구분. =이 오면 계산하고, +,-가 오면 값을 저장하고.
+- =의 경우 앞에서 저장한 값과 지금 읽은 값 두 가지가 필요하다.
+  - 앞에서 저장한 값과 연산자는 어플리케이션 저장소에서 가져와야 한다.
+  - `int x=(Integer)application.getAttribute("value");`: setAttribute()로 저장한 키워드를 사용해서 들고옴. 반환 타입은 오브젝트라서 (Integer)로 형변환함.
+- 먼저 값을 3을 입력하고 +버튼 누름 -> 해당 정보가 전달되면 서블릿은 값과 연산자를 어플리케이션 저장소에 저장함 -> 이 때 저장만 하고 출력하는 게 없어서 새하얀 화면이 될 것이다. -> 그럼 뒤로가기 버튼 누르고, 이젠 값 2와 =버튼을 누른다. -> 앞에 저장한 값들을 가져오고 계산한 결과가 화면에 출력된다.
+
+- calc2.html
+
+```html
+<form action="calc2" method="post">
+  <div>
+    <label>입력: </label>
+    <input name="v" type="text" />
+  </div>
+  <div>
+    <input type="submit" name="operator" value="+" />
+    <input type="submit" name="operator" value="-" />
+    <input type="submit" name="operator" value="=" />
+  </div>
+  <div>결과: 0</div>
+</form>
+```
+
+- Calc2.java
+
+```java
+@WebServlet("/calc2")
+public class Calc2 extends HttpServlet {
+
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		ServletContext application=request.getServletContext();
+
+		String v_=request.getParameter("v");
+		String op=request.getParameter("operator");
+
+		int v=0;
+		if(!v_.equals("")) v=Integer.parseInt(v_);
+
+		// 계산
+		if(op.equals("=")) {
+			int x=(Integer)application.getAttribute("value");
+			int y=v;
+			String operator=(String)application.getAttribute("op");
+
+			int result=0;
+			if(operator.equals("+"))
+				result=x+y;
+			else
+				result=x-y;
+
+			response.getWriter().printf("result is %d\n", result);
+		}
+		// 값을 저장
+		else {
+			application.setAttribute("value", v);
+			application.setAttribute("op", op);
+		}
+
+	}
+
+}
+```
+
+<br><br>
+
+# 강의 27 - Session 객체로 상태 값 저장하기(그리고 Application 객체와의 차이점)
+
+- 일단 강의 26에서 사용한 코드에서 Application 객체에서 Session 객체로 바꿔본 후 차이점을 살펴보도록 하자.
+- 강의 26에서 사용한 Calc2.java에서 `HttpSession session= request.getSession();`로 세션을 생성한 후, application.get/setAttribute()부분에서 application을 session으로 전부 고치기만 하고 실행. 결과는 전과 똑같음.
+
+- 차이점: Application 객체는 어플리케이션 전역에서 쓸 수 있다. 반면 Session 객체는 범주 내에서 쓸 수 있다. 이 때 세션은 현재 접속한 사용자를 뜻한다. 그럼 접속자마다 공간이 달라질 수 있다.
+- 다른 브라우저를 쓰면 다른 세션으로 인식한다.
+- 반면 기존에 크롬을 쓰고, 지금도 크롬을 새로 실행해서 접속하면 같은 세션으로 인식된다.
+  - 왜냐면 크롬 브라우저를 여러 개 띄워도, 여러 프로세스가 동작하는 게 아니라, 하나의 프로세스에 창을 쓰레드라는 개념(프로세스의 흐름을 나눠 갖는 쓰레드라는 개념)으로 띄우게 된다.
+  - 따라서 프로세스가 가지고 있는 자원을 쓰레드들은 같이 공유하기 때문에, 웹 서버에 요청할 경우 같은 프로세스가 요청한 걸로 인식됨. 그래서 같은 세션(사용자)으로 인식하게 된다.
+
+<br><br>
+
+# 강의 28 - WAS가 현재사용자(Session)을 구분하는 방식
+
+- 세션 id(SID)가 was에 의해서 발부가 되고, 발급된 번호는 브라우저가 항상 가지고 다님. 그러다가 브라우저를 닫으면 사라짐.
+  - was 안에 값을 두고(Application, Session) 나중에 다시 사용함.
+  - 세션은 개인별 사물함(캐비닛) 느낌의 공간이라, 개인마다 번호가 있음.
+  - 만약 사용자가 서버 상의 프로그램을 실행해라는 요청이 온다면, 서블릿이 실행될 것이다.
+  - 이 때 요청이 처음 오는 것이라면, 새로운 사용자가 되고 이 때는 이 사용자를 위한 세션은 존재하지 않음(Application 공간의 경우는 모든 요청에 대해 저장 가능). 세션은 사용자가 세션 아이디를 가지고 있어야 세션에 값을 저장할 수 있음.
+  - 요청 처리를 마친 후 새 사용자에게 아이디를 부여해 주고 브라우저는 이를 갖고 있음. 그 후 다시 브라우저가 요청하면 이 땐 아이디를 가지고 있으니 세션 사용 가능.
+- 세션 키 확인
+  - f12로 개발자 도구 열고, 네트워크 탭을 연다. 그 후 버튼을 누르고 http 헤더 정보를 보면, Cookie: JSESSIONID=9405B93930922EAF56AFCC941B86628C같은 항목이 있다. 다른 크롬 창을 열고 다시 반복해도 세션 아이디는 같아서 같은 세션으로 인식됨.
+- 세션 객체가 갖고 있는 메서드
+  - void setAttribute(String name, Object value): 지정된 이름으로 객체를 설정
+  - Object getAttribute(String name): 지정한 이름의 객체를 반환
+  - void invalidate(): 세션에서 사용되는 객체를 바로 해제(저장소를 비울 때)
+  - void setMaxInactiveInterval(int interval)
+    - 세션 타임아웃을 정수(초)로 설정
+    - 사용자가 요청했지만, 그 다음에는 요청이 안 올 수 있음. 따라서 시간을 두는데, 기본 타임아웃은 30분임.
+    - 만약 타임아웃된 후 전의 아이디를 갖고 있는 요청이 다시 오면, 이는 새 유저로 인식됨. 즉 해당 아이디는 유효하지 않은 아이디가 되서 해당 세션 공간을 메모리에서 수거됨.
+  - boolean isNew(): 세션이 새로 생성되었는지를 확인
+  - Long getCreationTime(): 세션이 시작된 시간을 반환. 1970년 1월 1일을 시작으로 하는 밀리초
+  - Long getLastAccessedTime(): 마지막 요청 시간. 1970년 1월 1일을 시작으로 하는 밀리초
+
+<br><br>
+
+# 강의 29 - Cookie를 이용해 상태값 유지하기
+
+- 누구나 쓸 수 있는 저장공간인 Application과, 자기만 쓸 수 있는 공간인 Session이 was 안에 있음을 배웠음.
+- 꼭 서버에다가 값을 보관하지 않고, 상태값을 가지고 다닐 수 있음(브라우저가 상태값을 갖고 들고 다님).
+- 클라이언트에서 저장할 수 있는 공간은 Cookie 저장소가 있음.
+- 클라이언트가 값을 가지고 갈 수 있는데, 이 때 값의 종류는 세 가지가 있음
+
+  - 브라우저가 알아서 담아주는 헤더 정보, 사용자 데이터(내가 보내는 데이터), 쿠기
+  - 헤더 정보는 getHeader()로, 사용자 데이터는 getParameter()로, 쿠키는 getCookies()로 꺼내고 씀.
+  - 서버가 쿠키를 만들어서 브라우저가 보관하게 하고 싶으면 addCookie()를 씀
+
+- 쿠키는 문자열만 저장될 수 있음. 따라서 객체 생성할 때 `new Cookie("value", String.valueOf(v));`에서 String.valueOf(v)처럼 v가 정수면 이를 문자열로 바꿔서 생성해야 함.
+  - jakarta.servlet.http.Cookie 사용
+  - "value"는 키고, String.valueOf(v)는 값이다.
+- `response.addCookie(valueCookie);`처럼 쿠키를 보낸다. 쿠키가 어떻게 전달되냐면 response header에 심어진 형태로 전달됨.
+- 브라우저에서 쿠키를 읽는 걸 허용하지 않으면, 이를 통해 상태값을 유지하는 데 쓸 수 없음
+- `Cookie[] cookies=request.getCookies();`: getCookies로 쿠키를 읽을 수 있다. 쿠키는 여러 개일 수 있으므로 배열로 반환됨.
+
+- Calc2.java
+
+```java
+@WebServlet("/calc2")
+public class Calc2 extends HttpServlet {
+
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
+		ServletContext application=request.getServletContext();
+		HttpSession session= request.getSession();
+		Cookie[] cookies=request.getCookies();
+
+		String v_=request.getParameter("v");
+		String op=request.getParameter("operator");
+
+		int v=0;
+		if(!v_.equals("")) v=Integer.parseInt(v_);
+
+		// 계산
+		if(op.equals("=")) {
+			//int x=(Integer)application.getAttribute("value");
+			//int x=(Integer)session.getAttribute("value");
+			int x=0;
+			for(Cookie c:cookies) {
+				if(c.getName().equals("value")) {
+					x=Integer.parseInt(c.getValue());
+					break;
+				}
+			}
+
+			int y=v;
+			//String operator=(String)application.getAttribute("op");
+			//String operator=(String)session.getAttribute("op");
+			String operator="";
+			for(Cookie c:cookies) {
+				if(c.getName().equals("op")) {
+					operator=c.getValue();
+					break;
+				}
+			}
+
+			int result=0;
+			if(operator.equals("+"))
+				result=x+y;
+			else
+				result=x-y;
+
+			response.getWriter().printf("result is %d\n", result);
+		}
+		// 값을 저장
+		else {
+			//application.setAttribute("value", v);
+			//application.setAttribute("op", op);
+
+			//session.setAttribute("value", v);
+			//session.setAttribute("op", op);
+
+			Cookie valueCookie=new Cookie("value", String.valueOf(v));
+			Cookie opCookie=new Cookie("op", op);
+			response.addCookie(valueCookie);
+			response.addCookie(opCookie);
+		}
+	}
+}
+```
+
+<br><br>
+
+# 강의 30 - Cookie의 path 옵션
+
+- 쿠키를 사용할 때 해당 url과 관련된 서블릿에게만 값이 전달될 수 있도록 하기
+  - `valueCookie.setPath("/");`: 모든 페이지를 요청할 때마다 클라이언트가 valueCookie를 가져오도록 설정
+  - `valueCookie.setPath("/notice/");`:notice가 포함된 하위 url을 요청할 경우에만 valueCookie를 가져오도록 설정
+  - `valueCookie.setPath("/calc2");`: calc2에서만 사용되는 거라면 이렇게 설정.
+
+```java
+Cookie valueCookie=new Cookie("value", String.valueOf(v));
+Cookie opCookie=new Cookie("op", op);
+valueCookie.setPath("/");
+opCookie.setPath("/");
+response.addCookie(valueCookie);
+response.addCookie(opCookie);
+```
+
+<br><br>
+
+# 강의 31 - Cookie의 maxAge 옵션
+
+- 기본적인 경우 브라우저가 닫히면 쿠키도 없어진다. 하지만 브라우저가 닫혀도 내가 원하는 기간을 설정하면 기간 내에 그 값을 유지할 수 있다.
+- 브라우저가 쿠기를 저장하는 공간: 기본적으로 쿠키는 브라우저의 메모리에 있다가, 기간 설정이 되면 외부 파일로 저장됨.
+- `valueCookie.setMaxAge(24*60*60);`: 해당 쿠키는 `24*60*60`초 후에 만료되도록 설정. 이 때 기본 단위는 초이기 때문에 60분(1시간)을 하고 싶으면 `60*60`, 24시간(하루)로 설정하고 싶으면 `24*60*60`
+
+<br><br>
+
+# 강의 32 - Application/Session/Cookie 정리
+
+- 상태 저장을 위한 저장소 특징
+  - application
+    - 사용범위: 전역 범위에서 사용하는 저장 공간
+    - 생명주기: was가 시작해서 종료할 때까지
+    - 저장위치: was 서버의 메모리
+  - session
+    - 사용범위: 세션 범위(특정 사용자)에서 사용하는 저장 공간
+    - 생명주기: 세션이 시작해서 종료할 때까지
+    - 저장위치: was 서버의 메모리
+  - cookie
+    - 사용범위: 웹 브라우저별 지정한 path 범주(특정 url에 대해서만 사용 가능) 공간
+    - 생명주기: 브라우저에 전달한 시간부터 만료시간까지
+    - 저장위치: was 서버의 메모리
+  - 값을 저장하려고 하는데, 오래 저장하고 싶은 경우(예로 1년) 어디에 저장해야 하지?
+    - 무조건 쿠키에 저장해야 함.
+    - 세션은 왜 안됨? 기본적으로 세션 아이디는 쿠키로 전달됨. 따라서 브라우저 닫으면 쿠키 사라짐. 새로 브라우저 열면 그 사용자의 세션 아이디는 그 전과 같을까? 아니다. 또 다른 번호를 부여받고 또 다른 세션 공간을 차지하게 됨. 그럼 서버 자원 낭비.
+  - 특정 url(예로 notice)와 관련된 값을 가지고 있고, notice 외에는 이를 쓰는 서블릿이 없다고 치자. 그럼 이를 application,session에 저장하는 것보다 쿠키를 쓰는게 바람직. 어쩌다 한 번 쓰는 값을 session에 넣으면 이것도 서버 자원 낭비
+
+<br><br>
+
+# 강의 33 - 서버에서 페이지 전환해주기(redirection)
+
+- 페이지 전환(리다이렉트)
+  - 값과 + 버튼을 눌러서 포스트하면 서블릿쪽에서 아무것도 돌려주는 것이 없어서 백지를 돌려주게 됨. 계속 계산 이어가려고 하면 뒤로가기를 눌러야 했다.
+  - 이 때 서블릿 쪽에서 백지를 주지 않고 원하는 페이지로 대신 돌려줄 수 있음.
+  - `response.sendRedirect("calc2.html");`:
+
+<br><br>
+
+# 강의 34 - 동적인 페이지(서버 페이지)의 필요성
+
+- 동적인 문서
+  - 동적인 페이지: 요청이 들어오면 데이터를 결합시켜서 만든 문서(요청이 있을 때 만들어지는 문서)를 동적인 문서라고 함. 또 서버 페이지라고 불리는 까닭도 서버에서 만들어지는 페이지라서 그럼
+  - 좀 더 현실적인 계산기는 사용자가 입력한 내용을 서버에서 페이지를 만들 때 끼워 넣어야 함. 하지만 사용자가 어떤 숫자 버튼을 눌렀다면(post했다면), 서버는 그것을 쿠키든 세션이든 어딘가에 저장함. 그 후 다시 계산기 형식의 페이지를 보여주기 위해서 calc.html로 리다이렉트함.
+  - 하지만 html은 정적 페이지라서 사용자가 입력한 내용을 끼워 넣을 수 없음. 따라서 동적인 페이지(서버 페이지)가 필요함. 즉 이미 만들어진 페이지를 보내는 것이 아니라, 요청이 오면 출력할 문서를 만들 때 입력한 숫자도 넣어서 출력.
+  - 이를 위해 html만이 아니라 서블릿으로 된 동적인 문서를 만드는 프로그램을 만들어야 함
+- 계산기 형식 html 만들기
+  - 다음 강의에서 이를 서블릿으로 바꾸는 작업 할 거임
+  - 일반 윈도우 계산기에서 좀 간략하게 해서 만들어서, 5행(tr) 4열(td)(결과를 표시하는 행까지 합하면 6행 4열)이다.
+  - `<td colspan="4">0</td>`: 제일 위의 1행은 결과나 사용자가 입력한 문자를 표시하는 행이다. 이 때 colspan은 기본적으로 1로 설정되어 있음. 이 뜻은 열 1칸의 크기를 의미함. 이 때 4라고 설정하면 열의 크기를 4칸만큼 하겠다는 뜻
+  - ÷ 만드는 법: ㄷ에 "한자"키 누르면 ÷ 나옴.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <style>
+      input {
+        width: 50px;
+        height: 50px;
+      }
+      .output {
+        height: 50px;
+        background: #e9e9e9;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: right;
+        /*상하는 0px, 좌우는 5px  */
+        padding: 0px 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="calc3" method="post">
+      <table>
+        <tr>
+          <td class="output" colspan="4">0</td>
+        </tr>
+        <tr>
+          <td><input type="submit" name="operator" value="CE" /></td>
+          <td><input type="submit" name="operator" value="C" /></td>
+          <td><input type="submit" name="operator" value="BS" /></td>
+          <td><input type="submit" name="operator" value="÷" /></td>
+        </tr>
+        <tr>
+          <td><input type="submit" name="value" value="7" /></td>
+          <td><input type="submit" name="value" value="8" /></td>
+          <td><input type="submit" name="value" value="9" /></td>
+          <td><input type="submit" name="operator" value="X" /></td>
+        </tr>
+        <tr>
+          <td><input type="submit" name="value" value="4" /></td>
+          <td><input type="submit" name="value" value="5" /></td>
+          <td><input type="submit" name="value" value="6" /></td>
+          <td><input type="submit" name="operator" value="-" /></td>
+        </tr>
+        <tr>
+          <td><input type="submit" name="value" value="1" /></td>
+          <td><input type="submit" name="value" value="2" /></td>
+          <td><input type="submit" name="value" value="3" /></td>
+          <td><input type="submit" name="operator" value="+" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type="submit" name="value" value="0" /></td>
+          <td><input type="submit" name="dot" value="." /></td>
+          <td><input type="submit" name="operator" value="=" /></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
+```
+
+<br><br>
+
+# 강의 35 - 처음이자 마지막으로 동적인 페이지 서블릿으로 직접 만들기
+
+- `out.write()`: write()는 문자열 출력 전용함수
+
+```java
+package com.newlecture.web;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/calcpage")
+public class CalcPage extends HttpServlet {
+
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out=response.getWriter();
+
+
+		out.write("<!DOCTYPE html>");
+
+		out.write("<html>");
+		out.write("<head>");
+		out.write(" <meta charset=\"UTF-8\" />");
+		out.write(" <title>Insert title here</title>");
+		out.write(" <style>");
+		out.write("	input{");
+		out.write("		width:50px;");
+		out.write("		height:50px;");
+		out.write("	}");
+		out.write("	.output{");
+		out.write("		height:50px;");
+		out.write("		background: #e9e9e9;");
+		out.write("	font-size:24px;");
+		out.write("	font-weight:bold;");
+		out.write("	text-align:right;");
+		out.write("	padding:0px 5px; ");
+		out.write("}");
+		out.write(" </style>");
+		out.write("</head>");
+		out.write("<body>");
+		out.write(" <form action=\"calc3\" method=\"post\">");
+		out.write("	<table>");
+		out.write("	<tr>");
+		out.printf("		<td class=\"output\" colspan=\"4\">%d</td>",3+4);
+		out.write("	</tr>");
+		out.write("	<tr>");
+		out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"CE\" /></td>");
+		out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"C\" /></td>");
+		out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"BS\" /></td>");
+		out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"÷\" /></td>");
+		out.write("	</tr>");
+		out.write("	<tr>");
+		out.write("		<td><input type=\"submit\"  name=\"value\" value=\"7\" /></td>");
+		out.write("		<td><input type=\"submit\"  name=\"value\" value=\"8\" /></td>");
+		out.write("		<td><input type=\"submit\"  name=\"value\" value=\"9\" /></td>");
+		out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"X\" /></td>");
+		out.write("	</tr>");
+		out.write("	<tr>");
+		out.write("		<td><input type=\"submit\"  name=\"value\" value=\"4\" /></td>");
+		out.write("	<td><input type=\"submit\"  name=\"value\" value=\"5\" /></td>");
+		out.write("	<td><input type=\"submit\"  name=\"value\" value=\"6\" /></td>");
+		out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"-\" /></td>");
+		out.write("	</tr>");
+		out.write("	<tr>");
+		out.write("	<td><input type=\"submit\"  name=\"value\" value=\"1\" /></td>");
+		out.write("	<td><input type=\"submit\"  name=\"value\" value=\"2\" /></td>");
+		out.write("	<td><input type=\"submit\"  name=\"value\" value=\"3\" /></td>");
+		out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"+\" /></td>");
+		out.write("	</tr>");
+		out.write("	<tr>");
+		out.write("		<td></td>");
+		out.write("		<td><input type=\"submit\"  name=\"value\" value=\"0\" /></td>");
+		out.write("		<td><input type=\"submit\"  name=\"dot\" value=\".\" /></td>");
+		out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"=\" /></td>");
+		out.write("	</tr>");
+		out.write("	</table>");
+		out.write(" </form>");
+		out.write("</body>");
+		out.write("</html>");
+	}
+
+}
+```
+
+<br><br>
+
+# 강의 36 - 계산기 서블릿 완성하기
+
+- 목표: 버튼 눌러서 post하게 되면, 이를 누적해서 쿠키로 저장 후 리다이렉트한다. 그러면 ui에는 저장된 쿠키 정보를 출력하기
+- CalcPage.java
+  - exp: 이 문자열은 연산식(숫자와 연산자로 이루어진 식)을 표현. 이를 `out.printf("		<td class=\"output\" colspan=\"4\">%s</td>", exp);`게 출력
+  - 기존에 value=\"÷\", value=\"X\"의 경우 실제적으로는 연산자가 `/, *`이므로 value=\"/\", `value=\"*\"`로 수정
+- Calc3.java
+
+  - `response.sendRedirect("calcpage");`: Calc3(@WebServlet("/calc3"))에서 CalcPage(@WebServlet("/calcpage"))으로 갈 때는 경로(/)가 같기 때문에 그냥 주소만(calcpage) 쓸 수 있음.
+  - `String value=request.getParameter("value");`, `String operator=request.getParameter("operator");`, `String dot=request.getParameter("dot");`는 이중에 하나만 올 수 있다.
+    - 만약에 숫자버튼 하나만 눌렀으면, value만 값이 오고 나머지는 다 null이다.
+    - 따라서 `exp+=(value==null)?"":value;`, `exp+=(operator==null)?"":operator;`, `exp+=(dot==null)?"":dot;`가 뜻하는 것은 얻은 값이 null이 아닐 때만 붙인다는 소리다.
+  - 자바 스크립트 엔진이 안되서 다음 댓글을 참고해서 진행했는데...도 안된다.
+
+  ```
+  스크립트 엔진 안되시는분들
+  1. 프로젝트 우클릭 -> configure -> convert to maven project 클릭
+  2. 생성된 pom.xml 파일에
+    <dependencies>
+      <dependency>
+        <groupId>org.graalvm.js</groupId>
+        <artifactId>js</artifactId>
+        <version>19.2.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.graalvm.js</groupId>
+        <artifactId>js-scriptengine</artifactId>
+        <version>19.2.0.1</version>
+      </dependency>
+    </dependencies>
+  삽입 ( <build> 바로 위 )
+  3. Calc3.java에 ScriptEngine engine = new ScriptEngineManager().getEngineByName("graal.js"); 삽입
+  ```
+
+- 코드
+
+```java
+package com.newlecture.web;
+
+import java.io.IOException;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/calc3")
+public class Calc3 extends HttpServlet {
+
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		Cookie[] cookies=request.getCookies();
+
+		String value=request.getParameter("value");
+		String operator=request.getParameter("operator");
+		String dot=request.getParameter("dot");
+
+		// 기존의 쿠키를 읽어와서, 그걸 가지고 덧붙이는 작업
+		String exp="";
+		if(cookies!=null)
+			for(Cookie c:cookies) {
+				if(c.getName().equals("exp")) {
+					exp=c.getValue();
+					break;
+				}
+			}
+
+		if(operator!=null&&operator.equals("=")) {
+			// 자바스크립트 엔진 에러난다.
+//			ScriptEngineManager manager = new ScriptEngineManager();
+//			ScriptEngine engine = manager.getEngineByName("graal.js");
+//			try {
+//			    exp=String.valueOf(engine.eval(exp));
+//			} catch (ScriptException e) {
+//			    System.err.println(e);
+//			}
+		} else {
+			exp+=(value==null)?"":value;
+			exp+=(operator==null)?"":operator;
+			exp+=(dot==null)?"":dot;
+		}
+
+		Cookie expCookie=new Cookie("exp",exp);
+		response.addCookie(expCookie);
+		response.sendRedirect("calcpage");
+		}
+	}
+```
