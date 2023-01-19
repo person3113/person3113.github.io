@@ -1,6 +1,6 @@
 ---
-title: "[서블릿/JSP(뉴렉처)] "
-excerpt: ""
+title: "[서블릿/JSP(뉴렉처)] 1 ~ 53강"
+excerpt: "서블릿/JSP 공부"
 
 categories:
   - Learning-Java
@@ -12,7 +12,7 @@ toc_sticky: true
 toc_label: "페이지 주요 목차"
 
 date: 2023-01-16
-last_modified_at: 2023-01-16
+last_modified_at: 2023-01-19
 ---
 
 <br>
@@ -1315,4 +1315,732 @@ public class Calc3 extends HttpServlet {
 		response.sendRedirect("calcpage");
 		}
 	}
+```
+
+<br><br>
+
+# 강의 37 - 쿠키 삭제하기
+
+- 계산기에서 클리어 버튼(C) 눌렀을 때 쿠키 삭제하기
+
+  - `expCookie.setMaxAge(0);`: 클리어 버튼 누르면 쿠키의 만료시간을 0초 후로 설정하면 쿠키는 삭제됨
+
+- Calc3.java
+
+```java
+@WebServlet("/calc3")
+public class Calc3 extends HttpServlet {
+
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		Cookie[] cookies=request.getCookies();
+
+		String value=request.getParameter("value");
+		String operator=request.getParameter("operator");
+		String dot=request.getParameter("dot");
+
+		// 기존의 쿠키를 읽어와서, 그걸 가지고 덧붙이는 작업
+		String exp="";
+		if(cookies!=null)
+			for(Cookie c:cookies) {
+				if(c.getName().equals("exp")) {
+					exp=c.getValue();
+					break;
+				}
+			}
+
+		if(operator!=null&&operator.equals("=")) {
+			// 안된다.
+//			ScriptEngineManager manager = new ScriptEngineManager();
+//			ScriptEngine engine = manager.getEngineByName("graal.js");
+//			try {
+//			    exp=String.valueOf(engine.eval(exp));
+//			} catch (ScriptException e) {
+//			    System.err.println(e);
+//			}
+		} else if(operator!=null&&operator.equals("C")) {
+			exp="";
+		}
+		else {
+			exp+=(value==null)?"":value;
+			exp+=(operator==null)?"":operator;
+			exp+=(dot==null)?"":dot;
+		}
+
+		Cookie expCookie=new Cookie("exp",exp);
+		if(operator!=null&&operator.equals("C")) {
+			expCookie.setMaxAge(0);
+		}
+		response.addCookie(expCookie);
+		response.sendRedirect("calcpage");
+		}
+	}
+```
+
+<br><br>
+
+# 강의 38 - GET과 POST에 특화된 서비스 함수
+
+- `req.getMethod().equals("GET")`: form에 method값을 반환하는 함수가 getMethod(). 단 반환은 대문자로 하므로 주의
+- 부모의 service함수(`super.service(req, res);`)
+
+  - get요청이 오면 doGet()을, post요청일 경우 doPost()를 실행하게 되어 있음.
+  - 만약 get요청이 오고 `super.service(req, res);` 실행되면 doGet()가 호출되는데, doGet()이 오버라이드되지 않았으면 오류 발생
+  - 따라서 부모의 service를 오버라이드하고 조건문써서 get과 post를 다 여기서 처리할 건지, 아님 service 함수 오버라이드 하지 않고 get요청만 처리하고 싶으면 doGet()만 오버라이드해서 처리하는 식으로 할건지 고를 수 있음
+  - get과 post 요청을 따로 처리할 거면 각각 doGet,doPost메소드를 오버라이드해서 사용. 혹은 get과 post 요청을 한번에 처리할 거면 service를 오버라이드해서 사용
+
+- calculator.html
+
+```html
+<body>
+  <form action="calculator" method="get">
+    <input type="submit" value="요청" />
+  </form>
+</body>
+```
+
+- service를 오버라이드하고 조건문써서 get과 post를 다 여기서 처리할 건지
+
+```java
+@WebServlet("/calculator")
+public class Calculator extends HttpServlet{
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+		if(req.getMethod().equals("GET")) {
+			System.out.println("GET 요청이 왔습니다");
+		}else if(req.getMethod().equals("POST")) {
+			System.out.println("POST 요청이 왔습니다");
+		}
+	}
+}
+```
+
+- service 함수 오버라이드 하지 않고 get요청만 처리하고 싶으면 doGet()만 오버라이드해서 처리하는 식으로 할건지
+
+```java
+@WebServlet("/calculator")
+public class Calculator extends HttpServlet{
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("doGet 메소드가 호출되었습니다");
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("doPost 메소드가 호출되었습니다");
+	}
+}
+```
+
+<br><br>
+
+# 강의 39 - 계산기 프로그램 하나의 서블릿으로 합치기
+
+- 전에 만들었던 계산기 서블릿을 보면, /calcpage로 get요청만 하고 있고, /calc3로 post요청만 하고 있었다.
+  - 그럼 만약 쿠키.setPath()해서 특정 url에서만 쿠키를 사용하도록 하고 싶다고 치자. 이 때 이 setPath()는 하나의 경로만 지정 가능하다. 또 아무것도 지정하지 않으면 루트경로가 된다.
+  - 루트경로가 되면 쿠키를 사용할 필요가 없는 곳에서도 쿠키를 넣게 된다. 이는 싫으니까 경로를 설정하려고 보니 /calcpage로 설정하면 /calc3는 쿠키를 못 받으니까 문제다.
+  - 따라서 url을 하나로 합치고 싶다.
+- /calculator이라는 url로 합치자. 이 때 전에 만든 calc3.java는 doPost() 안에, calcpage.java는 doGet() 안에 넣고 약간만 수정하자
+
+  - `<form action="calc3" method="post">"`에서 `action="calc3"` 삭제
+    - 아래 코드처럼 합치면 action을 쓸 필요가 없다. 왜냐면 기존에는 get요청하는 페이지와 post를 담당하는 url이 달라서 "calc3"라고 지정한 거다.
+    - 현재 페이지를 post요청하니까 안 넣어도 됨
+  - `response.sendRedirect("calculator");`: 자기가 자기를 요청하는데, 이는 get요청을 의미함
+  - `expCookie.setPath("/calculator");`: 자기자신(calculator)에서만 해당 쿠키를 사용할 수 있음
+
+- 기존의 코드와 똑같은 건 주석 처리함.
+
+```java
+package com.newlecture.web;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/calculator")
+public class Calculator extends HttpServlet{
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Cookie[] cookies=request.getCookies();
+
+		// String exp="0";
+		// if(cookies!=null)
+		// 	for(Cookie c:cookies) {
+		// 		if(c.getName().equals("exp")) {
+		// 			exp=c.getValue();
+		// 			break;
+		// 		}
+		// 	}
+
+		// response.setCharacterEncoding("UTF-8");
+		// response.setContentType("text/html; charset=UTF-8");
+		// PrintWriter out=response.getWriter();
+
+		// out.write("<!DOCTYPE html>");
+
+		// out.write("<html>");
+		// out.write("<head>");
+		// out.write(" <meta charset=\"UTF-8\" />");
+		// out.write(" <title>Insert title here</title>");
+		// out.write(" <style>");
+		// out.write("	input{");
+		// out.write("		width:50px;");
+		// out.write("		height:50px;");
+		// out.write("	}");
+		// out.write("	.output{");
+		// out.write("		height:50px;");
+		// out.write("		background: #e9e9e9;");
+		// out.write("	font-size:24px;");
+		// out.write("	font-weight:bold;");
+		// out.write("	text-align:right;");
+		// out.write("	padding:0px 5px; ");
+		// out.write("}");
+		// out.write(" </style>");
+		// out.write("</head>");
+		// out.write("<body>");
+		out.write(" <form method=\"post\">");
+		// out.write("	<table>");
+		// out.write("	<tr>");
+		// out.printf("		<td class=\"output\" colspan=\"4\">%s</td>", exp);
+		// out.write("	</tr>");
+		// out.write("	<tr>");
+		// out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"CE\" /></td>");
+		// out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"C\" /></td>");
+		// out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"BS\" /></td>");
+		// out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"/\" /></td>");
+		// out.write("	</tr>");
+		// out.write("	<tr>");
+		// out.write("		<td><input type=\"submit\"  name=\"value\" value=\"7\" /></td>");
+		// out.write("		<td><input type=\"submit\"  name=\"value\" value=\"8\" /></td>");
+		// out.write("		<td><input type=\"submit\"  name=\"value\" value=\"9\" /></td>");
+		// out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"*\" /></td>");
+		// out.write("	</tr>");
+		// out.write("	<tr>");
+		// out.write("		<td><input type=\"submit\"  name=\"value\" value=\"4\" /></td>");
+		// out.write("	<td><input type=\"submit\"  name=\"value\" value=\"5\" /></td>");
+		// out.write("	<td><input type=\"submit\"  name=\"value\" value=\"6\" /></td>");
+		// out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"-\" /></td>");
+		// out.write("	</tr>");
+		// out.write("	<tr>");
+		// out.write("	<td><input type=\"submit\"  name=\"value\" value=\"1\" /></td>");
+		// out.write("	<td><input type=\"submit\"  name=\"value\" value=\"2\" /></td>");
+		// out.write("	<td><input type=\"submit\"  name=\"value\" value=\"3\" /></td>");
+		// out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"+\" /></td>");
+		// out.write("	</tr>");
+		// out.write("	<tr>");
+		// out.write("		<td></td>");
+		// out.write("		<td><input type=\"submit\"  name=\"value\" value=\"0\" /></td>");
+		// out.write("		<td><input type=\"submit\"  name=\"dot\" value=\".\" /></td>");
+		// out.write("		<td><input type=\"submit\"  name=\"operator\" value=\"=\" /></td>");
+		// out.write("	</tr>");
+		// out.write("	</table>");
+		// out.write(" </form>");
+		// out.write("</body>");
+		// out.write("</html>");
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Cookie[] cookies=request.getCookies();
+
+		// String value=request.getParameter("value");
+		// String operator=request.getParameter("operator");
+		// String dot=request.getParameter("dot");
+
+		// 기존의 쿠키를 읽어와서, 그걸 가지고 덧붙이는 작업
+		// String exp="";
+		// if(cookies!=null)
+		// 	for(Cookie c:cookies) {
+		// 		if(c.getName().equals("exp")) {
+		// 			exp=c.getValue();
+		// 			break;
+		// 		}
+		// 	}
+
+		// if(operator!=null&&operator.equals("=")) {
+		// 	안된다.
+		// 	ScriptEngineManager manager = new ScriptEngineManager();
+		// 	ScriptEngine engine = manager.getEngineByName("graal.js");
+		// 	try {
+		// 	    exp=String.valueOf(engine.eval(exp));
+		// 	} catch (ScriptException e) {
+		// 	    System.err.println(e);
+		// 	}
+		// } else if(operator!=null&&operator.equals("C")) {
+		// 	exp="";
+		// }
+		// else {
+		// 	exp+=(value==null)?"":value;
+		// 	exp+=(operator==null)?"":operator;
+		// 	exp+=(dot==null)?"":dot;
+		// }
+
+		// Cookie expCookie=new Cookie("exp",exp);
+		// if(operator!=null&&operator.equals("C")) {
+		// 	expCookie.setMaxAge(0);
+		// }
+
+		expCookie.setPath("/calculator");
+		// response.addCookie(expCookie);
+		response.sendRedirect("calculator");
+	}
+}
+```
+
+<br><br>
+
+# 강의 40 - JSP 시작하기 (Jasper를 이용한 서블릿 프로그래밍)
+
+- Jasper가 만들어주는 서블릿 출력 코드
+  - html 코드에 out.write()를 일일히 다 붙여서 서블릿 코드로 바꾼 다음 출력했는데, 이를 Jasper가 대신 해줌.
+  - Jasper에게 일을 시키려면 확장자만 .html에서 .jsp로 바꾸면 된다.
+- Jasper를 이용한 코드 작성 방법
+  - 기본적으로 Jasper에 적혀 있는 모든 내용은 다 출력해야 하는 걸로 알고 다 write() 안에 넣어버림
+  - 하지만 이건 출력할 게 아니고 자바 코드를 넣기 위한 용도로 "<% 안에 자바 코드 %>"(코드블록)를 이용할 수 있다.
+  - 만약 add.jsp에 코드를 쓰면 이는 Jasper가 add_jsp.java파일로 변환한다. 코드 블록을 쓰면 write() 안에 넣지 않고 쓴 그대로 넣는다.
+
+<br><br>
+
+# 강의 41 - JSP의 코드 블록
+
+- 코드 블록: 예시로 add.jsp파일에서 다음처럼 코드 블록 활용하면, Jasper가 add_jsp.java파일로 변환할 때 어떻게 할까?
+  - `<% y=x+3; %>`: 그대로 `y=x+3;`를 add_jsp.java 속 \_jspService함수에 넣음
+  - `y의 값은: <% out.print(y)%>`: `out.write("y의 값은: "); out.print(y);`가 add_jsp.java 속 \_jspService함수에 심어짐
+  - `y의 값은: <%=y%>`: `y의 값은: <% out.print(y)%>`와 같이 쓰기 불편하니 간단히 한 버전. 결과는 똑같이`out.write("y의 값은: "); out.print(y);`가 add_jsp.java 속 \_jspService함수에 심어짐
+  - `<%! public int sum(int a,int b) {return a+b;} %>`: 일반적인 코드블록(<%%>)안에 느낌표를 앞에 하나 추가하면 이 코드는 add_jsp.java 속 \_jspService함수가 아니라, add_jsp 클래스의 멤버를 선언하는 곳에 심어짐
+- 페이지 지시자
+  - 페이지를 어떤 인코딩 방식을 이용할 것인지, 콘텐츠 타입은 무엇인지 지시하는 것
+  - 이는 지시 블록(<%@ %>)를 이용한다.
+
+<br><br>
+
+# 강의 42 - JSP의 내장객체 간단히 알아보기
+
+- JSP의 내장객체
+  - Jasper가 만들어 놓은 객체를 가리키는 변수들을 내장 객체라고 한다.
+  - 우리는 이런 변수가 있음을 알고 있어야 하고, 이를 적절히 활용해서 만들 수도 있어야 한다.
+  - request, response: 입력, 출력 도구
+  - applicaton, session 객체
+  - pageContext가
+    - applicaton, session처럼 페이지 내에서 임시로 데이터를 저장할 수 있는(setAttribute, getAttribute 갖고 있는) 변수
+    - ServletContext는 전역에서 사용하는 거라면, PageContext는 파일 내부에서만 쓰는 저장소라고 보면 됨
+  - config(ServletConfig 변수), out(출력도구), page(이 페이지의 객체를 참조하는 Object 변수)
+
+<br><br>
+
+# 강의 43 - JSP로 만드는 Hello 서블릿
+
+```jsp
+{%raw%}
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+int cnt=10; // 기본값
+
+String cnt_=request.getParameter("cnt");
+if(cnt_!=null&&!cnt_.equals(""))
+	cnt=Integer.parseInt(cnt_);
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+		<%for(int i=0;i<cnt;i++) {%>
+			안녕, servlet<br>
+		<%} %>
+</body>
+</html>
+{%endraw%}
+```
+
+<br><br>
+
+# 강의 44 - 스파게티 코드를 만드는 JSP
+
+- 스파게티 코드: 코드 블록을 나눠서 만들게 되면, 코드 수정할 때 자바 코드만 보기가 힘듦. 내가 관심 있는 코드와 없는 코드가 섞여 있는 코드
+- 한국말로는 실타래 코드라고 한다. 한 번 꼬이면 답이 없는 코드
+
+- 스파게티 코드 예제(spag.jsp)
+
+```jsp
+{%raw%}
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	int num=0;
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<%
+String num_=request.getParameter("n");
+if(num_!=null&&!num_.equals(""))
+num=Integer.parseInt(num_);
+%>
+<body>
+	<%if(num%2!=0) {%>
+	홀수입니다.
+	<%}
+	else
+	{%>
+	짝수입니다.
+	<%} %>
+</body>
+</html>
+{%endraw%}
+```
+
+<br><br>
+
+# 강의 45 - JSP MVC model1
+
+- jsp 코드 블록을 어떻게 간단하게 만들 수 있을까?(스파게티 코드를 어떻게 피할까?)
+- 이에 대해 나온 해결책이 MVC model1
+  - 코드 블록 최소화: 입력 코드는 전부 위쪽에 놓고, 출력 코드는 전부 아래쪽에 놓기
+  - 출력을 위해서 만드는 데이터(출력할 데이터)를 모델이라고 함.
+  - 이러한 모델은 입력 코드부분에서 만들어서, 출력 코드 부분에 꽂으면 됨.
+- 정리하면
+
+  - Controller: 출력할 데이터(Model)를 만들어 내는 부분(입력과 제어를 담당하는 자바 코드)
+  - View: 출력 담당(html 코드)
+  - Model: 출력 데이터
+
+- 스파게티 코드 예제(spag.jsp)에 mvc패턴을 적용 후
+
+```jsp
+{%raw%}
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	int num=0;
+	String num_=request.getParameter("n");
+	if(num_!=null&&!num_.equals(""))
+	num=Integer.parseInt(num_);
+
+	String result;
+	if(num%2!=0)
+		result="홀수";
+	else
+		result="짝수";
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<%=result %>입니다.
+</body>
+</html>
+{%endraw%}
+```
+
+<br><br>
+
+# 강의 46 - JSP MVC model1을 model2 방식으로
+
+- mvc model1은 컨트롤러와 뷰가 물리적으로 구분되지 않았다(한 파일 내에 자바 코드(컨트롤러)와 뷰(html 코드)가 같이 있다)
+- mvw model2는 컨트롤러와 뷰가 물리적으로 구분한 방식(자바 코드와 html 코드를 따로 분리)
+- model2: dispatcher를 집중화하기 전의 모델
+  - 컨트롤러와 뷰를 연결하기 위해서 포워딩하는 방법이 포함됨. 즉 컨트롤러에서 뷰로(서블릿에서 jsp(서블릿)로) 흐름을 이어받아서 코드를 진행하는 게 **포워딩**
+  - 이 때 포워딩은 dispatcher로 하게 됨
+  - 계속 페이지 만들다보면 컨트롤러에서 공통적으로 가지고 있는 dispatcher 기능이 비효율적
+- model2: dispatcher를 집중화하기 전의 모델
+  - dispatcher는 하나만 두고 컨트롤러의 기능만 따로 담는 방법
+  - 즉 실질적으로 서블릿은 하나만 만들고, 업무 로직(컨트롤러)는 따로 POJO클래스라고 해서, 서블릿 클래스가 아닌 일반 클래스 형태로 만듦
+  - 사용자 요청이 들어오면 dispatcher가 적절한 컨트롤러 찾아서 수행하게 함.
+- forward
+  - redirect와 forward
+    - forward는 현재 작업하던 내용을 이어갈 수 있도록 할 때 씀
+    - redirect는 현재 작업하던 내용과 전혀 관계없이 새로 요청할 때 씀
+- 실습
+
+  - `request.getRequestDispatcher("spag.jsp");`
+    - 현재 spag라는 url이 있는데, 요청이 들어왔을 경우, spag.jsp로 요청을 전달하려고 함
+    - 페이지명(spag.jsp)만 넣었지 경로를 넣지 않은 이유는, url 상으로 같은 디렉토리에 있다고 생각하기 때문에 지정하지 않음.
+  - `dispatcher.forward(request, response);`
+    - 위에서 얻은 dispatcher로 포워딩할 수 있음.
+    - 즉 현재 작업했던 내용들을 request, response에 담고 있다면, 그 내용이 spag.jsp로 이어져서 진행될 것이다.
+  - `request.setAttribute("result", result);`
+    - 우리가 result에 출력할 결과를 담았고, 이를 spag.jsp로 넘겨줄 때 쓸 수 있는 저장소가 request다.
+    - 즉 포워드 관계에 있는 둘 사이에 공유하는 저장소는 request가 사용됨
+
+- spag.java(컨트롤러)
+
+```java
+package com.newlecture.web;
+
+import java.io.IOException;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/spag")
+public class spag extends HttpServlet{
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int num=0;
+		String num_=request.getParameter("n");
+		if(num_!=null&&!num_.equals(""))
+		num=Integer.parseInt(num_);
+
+		String result;
+		if(num%2!=0)
+			result="홀수";
+		else
+			result="짝수";
+
+		request.setAttribute("result", result);
+		RequestDispatcher dispatcher
+			=request.getRequestDispatcher("spag.jsp");
+		dispatcher.forward(request, response);
+	}
+}
+```
+
+- spag.jsp(뷰)
+
+```jsp
+{%raw%}
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<%=request.getAttribute("result")%>입니다.
+</body>
+</html>
+{%endraw%}
+```
+
+<br><br>
+
+# 강의 47 - EL(Expression Language)
+
+- EL: 객체에서 값을 추출해서 출력하는 표현식
+  - 코드 블록을 쓰지 않고 값을 꺼내 쓸 수 있다.
+- `${result}`
+  - `request.setAttribute("result", result);` -> `<%=request.getAttribute("result")%>입니다.`
+  - 이 때 `<%=request.getAttribute("result")%>` 대신 `${result}입니다`로 간단히 쓸 수 있음
+- `${list[0]}`
+  - `List list=new ArrayList(){"1", "test"};`와 `request.setAttribute("list", list);` -> `((List)request.getAttribute("list")).get(0)`
+  - 이 때 `((List)request.getAttribute("ist")).get(0)`대신 `${list[0]}`으로 쓸 수 있음
+- `${n.title}`
+  - `Map n=new HashMap("title","제목");`와 `request.setAttribute("n", n);` -> `((Map)request.getAttribute("n")).get("title")`
+  - 이 때 `((Map)request.getAttribute("n")).get("title")` 대신 `${n.title}`로 쓸 수 있음
+
+<br><br>
+
+# 강의 48 - EL의 데이터 저장소
+
+- page객체에 값을 저장하기
+  - `<%pageContext.setAttribute("test","content")%>` 코드 블록을 jsp에 넣은 후 해당 jsp 파일 내에서 `${test}`라고 입력하면 저장된 값을 쓸 수 있음.
+- EL이 저장 객체에서 값을 추출하는 순서
+  - EL을 이용해서 뽑아낼 수 있는 것은 page 객체, request 객체, session 객체, application 객체 등 어디서든 뽑을 수 있다.
+  - 값을 추출하는 우선순위는 page->request->session->application 순이다.
+- 그럼 나는 session의 cnt를 바라고 ${cnt}를 썼는데, page에도 cnt가 저장되어 있다면, 어떻게 session의 cnt를 쓸 수 있을까?
+  - 우선순위는 page가 더 높으므로 cnt는 page의 cnt가 출력된다.
+  - 따라서 이와 비슷한 경우에는 다음의 키워드를 쓰면 된다.
+    - ${pageScope.cnt}
+    - ${requestScope.cnt}
+    - ${sessionScope.cnt}
+    - ${applicationScope.cnt}
+- 클라이언트의 입력 값 추출
+  - ${param.cnt}
+    - param은 파라미터 값을 저장하고 있는 저장소
+    - 파라미터란 "localhost:8080/spag?n=3"에서 n을 의미.
+  - ${header.host}
+    - header는 header 정보를 저장하고 있는 저장소
+  - `${header.["host"]}`
+    - 쓰려는 이름이 변수 명명 규칙에 맞지 않을 때(예로 대쉬가 들어갈 때), 대괄호와 따옴표로 감싸서 쓸 수 있음.
+- pageContext 객체
+  - pageContext: 페이지 범위의 컨텍스트 저장소
+  - ${pageContext.request.method}: <%=pageContext.getRequest().getMethod() %>를 EL로 표현한 것
+
+<br><br>
+
+# 강의 49 - EL 연산자
+
+- `empty`
+  - `${empty param.n}`: "localhost:8080/spag?n=3"처럼 n에 값이 오지 않으면 빈 문자열("spag?n="일 때) 혹은 null("spag"일 때)이 되는데, 이 경우 empty 구문은 참이 된다.
+- `+, -, *, (/와 div), (%와 mod)`
+  - `${3/2}`는 1.5로 출력됨(일반적인 것처럼 1로 출력되지 않음)
+- `(<와 lt),(>와 gt),(<=와 le),(>=와 ge)`
+  - html 자체가 꺾음새를 가지고 있는데, html의 엄격한 구문으로 파악하면 오류를 유발할 수도 있음. 따라서 lt(less than), le(less and equal) 등의 키워드도 사용할 수 있음
+- `(==와 eq),(!=와 ne)`
+  - ne(not equal)
+- `(&&와 and),(||와 or)`
+- `?:`
+  - `${empty param.n? '값이 비어있습니다': param.n}`: 삼항연산자
+
+<br><br>
+
+# 강의 50 - 수업용 프로젝트 준비하기
+
+- 별달리 메모할 내용은 없었다.
+
+<br><br>
+
+# 강의 51 - JSP를 이용해서 자바 웹 프로그램 만들기 시작
+
+- JSP 프로그래밍: Jasper가 작성할 서블릿 코드에 코드 블록을 적절히 끼워 달라고 지시하는 방식
+- list.html을 list.jsp로 복사하면, 한글이 다 깨져있음. 기본적으로 복사한 파일에 대한 인코딩 방식이 ISO-8859-1이라서 그럼. 이 땐 alt+enter키 누른 후에 파일 인코딩 방식을 utf-8로 설정
+- list.jsp를 실행하면 한글이 다 깨져 있음.
+  - 지시 블록 사용: `<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>`
+- list.jsp에서 공지사항 목록 부분을 약간 손 봄
+
+```jsp
+{%raw%}
+<%for(int i=0;i<10;i++) {%>
+	<tr>
+		<td><%=i+1 %></td>
+		<td class="title indent text-align-left"><a href="detail.html">스프링 8강까지의 예제 코드</a></td>
+		<td>newlec</td>
+		<td>
+			2019-08-18
+		</td>
+		<td>146</td>
+	</tr>
+<%} %>
+{%endraw%}
+```
+
+<br><br>
+
+# 강의 52 - JDBC를 이용해 글 목록 구현하기
+
+- 오라클 드라이버 가져오기
+
+  - 웹 개발할 때는 웹에서 사용하는 라이브러리가 어딘가에 배포돼서 실행되기 때문에 build path로 경로 지정해서 사용하면 안 되고, 라이브러리를 프로젝트에 포함시켜야 한다.
+  - WEB-INF 속 lib폴더가 있음. 여기에 우리가 사용하는 파일을 담아야 한다.
+
+- 해당 코드 내용은 jdbc 강의 ex1의 program.java파일에서 복붙한 내용도 포함돼 있다.
+- list.jsp
+
+```jsp
+{%raw%}
+<%
+String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
+String sql = "select * from notice";
+
+Class.forName("oracle.jdbc.driver.OracleDriver");
+Connection con = DriverManager.getConnection(url, "newlec", "1234");
+Statement st = con.createStatement();
+ResultSet rs = st.executeQuery(sql);
+
+%>
+
+<!-- 중략 -->
+
+<%while(rs.next()) {%>
+	<tr>
+		<td><%=rs.getInt("id") %></td>
+		<td class="title indent text-align-left"><a href="detail.html"><%=rs.getString("title") %></a></td>
+		<td><%=rs.getString("writer_id") %></td>
+		<td>
+			<%=rs.getDate("regdate") %>
+		</td>
+		<td><%=rs.getInt("hit") %></td>
+	</tr>
+<%} %>
+
+<!-- 중략 -->
+
+<%
+	rs.close();
+	st.close();
+	con.close();
+%>
+{%endraw%}
+```
+
+<br><br>
+
+# 강의 53 - 자세한 페이지 구현하기
+
+- `<td class="title indent text-align-left"><a href="detail.jsp?id=<%=rs.getInt("id") %>"><%=rs.getString("title") %></a></td>`
+  - 전 강의의 list.jsp의 일부분을 다음처럼 수정했다. 목록 페이지에서 게시글을 누르면 detail.jsp?id=<%=rs.getInt("id") %>로 이동하는 것이다.
+  - 즉 id에 해당하는 게시글로 이동 가능하게 하기 위해 수정했다.
+- detail.jsp를 구현하기
+  - list.jsp와 차이나는 부분만 기록하겠다. 전의 list.jsp에서 추가한 내용 중 일부를 복붙한 후 조금만 수정했기 때문이다.
+
+```jsp
+{%raw%}
+<%
+
+int id=Integer.parseInt(request.getParameter("id"));
+
+String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
+String sql = "select * from notice where id=?";
+
+Class.forName("oracle.jdbc.driver.OracleDriver");
+Connection con = DriverManager.getConnection(url, "newlec", "1234");
+PreparedStatement st = con.prepareStatement(sql);
+st.setInt(1, id);
+
+ResultSet rs = st.executeQuery();
+rs.next();
+%>
+
+<!-- 중략 -->
+
+<div class="margin-top first">
+	<h3 class="hidden">공지사항 내용</h3>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>제목</th>
+				<td class="text-align-left text-indent text-strong text-orange" colspan="3"><%=rs.getString("title") %></td>
+			</tr>
+			<tr>
+				<th>작성일</th>
+				<td class="text-align-left text-indent" colspan="3"><%=rs.getDate("regdate") %>	</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td><%=rs.getString("writer_id") %></td>
+				<th>조회수</th>
+				<td><%=rs.getString("hit") %></td>
+			</tr>
+			<tr>
+				<th>첨부파일</th>
+				<td colspan="3"><%=rs.getString("files") %></td>
+			</tr>
+			<tr class="content">
+				<td colspan="4"><%=rs.getString("content") %></td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+
+<div class="margin-top text-align-center">
+	<a class="btn btn-list" href="list.jsp">목록</a>
+</div>
+{%endraw%}
 ```

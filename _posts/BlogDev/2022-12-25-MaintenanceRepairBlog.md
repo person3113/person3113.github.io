@@ -12,7 +12,7 @@ toc_sticky: true
 toc_label: "페이지 주요 목차"
 
 date: 2022-12-25
-last_modified_at: 2023-01-09
+last_modified_at: 2023-01-20
 ---
 
 <br>
@@ -132,6 +132,11 @@ title: "[스프링 입문(김영한)] <프로젝트 생성> ~ <회원 리포지�
 ```
 
 => <프로젝트 생성=""> ~ <회원 리포지토리="" 테스트="" 케이스="" 작성="">으로 페이지에 출력됨.
+
+### Code block is improperly handled and generates Liquid syntax error
+
+- With Jekyll, Markdown files are fist processed by Liquid, and then Markdown, so Liquid syntax is interpreted, even within Markdown code-blocks.
+- To avoid the problem, the raw tag can be used to disable Liquid processing
 
 ### raw 메서드
 
