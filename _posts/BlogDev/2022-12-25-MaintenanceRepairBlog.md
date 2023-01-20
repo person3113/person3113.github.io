@@ -135,6 +135,7 @@ title: "[스프링 입문(김영한)] <프로젝트 생성> ~ <회원 리포지�
 
 ### Code block is improperly handled and generates Liquid syntax error
 
+- 내가 jsp 관련 코드를 쓴 후에 오류가 나서, 일단 jsp 코드 블록 안 내용을 다 raw tag로 일단 감쌌다. 그 후 실행하니 오류가 사라졌다.
 - With Jekyll, Markdown files are fist processed by Liquid, and then Markdown, so Liquid syntax is interpreted, even within Markdown code-blocks.
 - To avoid the problem, the raw tag can be used to disable Liquid processing
 
