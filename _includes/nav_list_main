@@ -72,6 +72,24 @@
     </li>
 
     <li>
+      <span class="nav__sub-title">English</span>
+      <ul>
+        {% for category in site.categories %} {% if category[0] == "Reading-English" %}
+        <li>
+          <a href="/categories/Reading-English" class="">Reading English ({{ category[1].size }})</a>
+        </li>
+        {% endif %} {% endfor %}
+      </ul>
+      <ul>
+        {% for category in site.categories %} {% if category[0] == "Learning-English" %}
+        <li>
+          <a href="/categories/Learning-English" class="">Learning English({{ category[1].size }})</a>
+        </li>
+        {% endif %} {% endfor %}
+      </ul>
+    </li>
+
+    <li>
       <span class="nav__sub-title">etc</span>
       <ul>
         {% for category in site.categories %} {% if category[0] == "TIL" %}
