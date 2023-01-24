@@ -93,3 +93,28 @@ last_modified_at: 2023-01-23
       - I have studied English (for years). : for years(부사) → 계속(지금까지 공부해왔고, 앞으로도 할 것이다.)
 
 <br><br>
+
+# type 4) 수동태의 이해
+
+- 수동태
+  - 목적어가 주어로 위치하는 경우
+  - I love you. → you are loved by me.
+  - Everyone respects you. → you are respected (by everyone).
+    - 불특정다수이기 때문에 by everyone을 생략
+    - 수동태에서 생략된 건 다 “by people”이라 생각하면 된다.
+- 감정수동태
+  - Socer excites him. → He is excited at soccer.
+  - Music interests me. → I am interested in Music.
+  - Lots of money satisfied me. → I was satisfied with lots of money.
+- 수동태 + 시제
+  - 현재진행 수동태: Some are learning Korean in other countries. → Korean is being learned in other countries.
+  - 현재완료 수동태: Jay has taught English in school. → English has been taught by Jay in school.
+- 5형식 수동태
+  - 2형식(S = C)로 취급
+  - 보어가 형용사/명사일 때
+    - Jay made Sora sad. → Sora was made sad. : Sora = sad
+    - They elected Jay president. → Jay was elected president. : Jay = president
+  - 보어가 동사일 때
+    - We expected him to go to library. → He was expected to go to library. : he = go to library → He goes to library.
+    - We made him go to library. → He was made to go to library. : he = go to library → He goes to library.
+    - We saw him go to library. → He was seen to go to library. : he = go to library → He goes to library.
