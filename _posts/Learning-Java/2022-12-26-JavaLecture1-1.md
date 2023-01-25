@@ -1047,26 +1047,35 @@ public class Main {
 
 - 자료형 매개변수 T
   - type의 의미로 T를 많이 사용함.
-  - <T>에서 <>는 다이아몬드 연산자라고 함.
-  - static 키워드는 T 앞에 사용할 수 없음. 왜냐면 T는 new해서 인스턴스를 생성할 때 뭐를 쓸 건지 결정되는데, static은 인스턴스 생성과 상관없이 메모리를 잡는다. 즉 어떤 타입이 올지 모르는데도... 그러니 static은 같이 안 쓰인다.
+  - `<T>`에서 <>는 다이아몬드 연산자라고 함.
+  - static 키워드는 T 앞에 사용할 수 없음.
+    - 왜냐면 T는 new해서 인스턴스를 생성할 때 뭐를 쓸 건지 결정된다. (`GenericPrinter<Powder> printer = new GenericPrinter<Powder>();`)
+    - static은 인스턴스 생성과 상관없이 메모리를 잡는다. 즉 어떤 타입이 올지 모르는데도... 그러니 static은 같이 안 쓰인다.
   - 다이아몬드 연산자 내부에서 자료형은 생략 가능함. : `ArrayList<String> list = new ArrayList<>();`
   - 제너릭에서 자료형 추론(자바 10부터): `var list = new ArrayList<String>();`
 - 제너릭에서 대입된 자료형을 명시하지 않은 경우
-  - GenericPrinter<Powder>와 같이 사용할 자료형(Powder)를 명시해야 함. 단 명시하지 않을 경우 강제 형 변환을 해야 함.
+  - `GenericPrinter<Powder>`와 같이 사용할 자료형(Powder)를 명시해야 함. 단 명시하지 않을 경우 강제 형 변환을 해야 함.
+  - 즉 안 쓰는 경우에는 Object로 간주하는 거랑 마찬가지라서, `Powder powder = (Powder) powderPrinter.getMaterial();`처럼 다운캐스팅해야 함.
 - `<T extends 클래스>`
-  - T가 사용될 클래스를 제한하기 위해 사용. 예로 `<T extends Material>`이라 하면 Material에서 상속받지 않는 Water와 같은 클래스는 프린터 재료로 사용할 수 없음. 또 Material에 정의된 메서드를 공유할 수 있음.
-- 제너릭 메서드
-- 자료형 매개변수가 두 개인 경우
+  - T가 사용될 클래스를 제한하기 위해 사용. 위 예시에서 GenericPrinter의 참조 자료형으로, Plastic, Powder는 상식적으로 말이 되지만, Water로 프린터할 순 없다. 이 때 Plastic, Powder는 받아들이고, Water는 안 받아들이고 싶을 때 사용.
+  - 그럼 먼저 GenericPrinter의 재료(Material)로 사용할 클래스들(Plastic, Powder)는 Material이라는 상위 클래스를 상속받도록 수정한다.
+  - 그 후 `public class GenericPrinter<T>`에서 `<T>`를 `<T extends Material>`로 고치면, Material에서 상속받지 않는 Water와 같은 클래스는 프린터 재료로 사용할 수 없음. 또 Material에 정의된 메서드를 공유할 수 있음.
+- 제네릭 메서드, 자료형 매개변수가 두 개인 경우
+  - 제네릭 메서드: 아래 예시에서 getX, getY 메서드가
+  - 자료형 매개변수가 두 개인 경우: `public class Point<T, V>`
 
 ```java
-public class Point<T, V> {
-	T x;
-	V y;
+public class Point<T, V>{
+  T x;
+  V y;
 
-	Point(T x, V y){
-		this.x = x;
-		this.y = y;
-	}
+  public T getX(){
+    return x;
+  }
+
+  public V getY(){
+    return y;
+  }
 }
 ```
 
@@ -1075,18 +1084,25 @@ public class Point<T, V> {
 ## 컬렉션 프레임워크
 
 - 배열
-  - 자료들이 순서대로 연속적으로 메모리에 저장됨. 원소들의 논리적 순서와 같은 순서로 기억공간에 저장(순차구조)하고 원소들의 논리적 순서 = 원소가 저장된 물리적 순서
+  - 같은 타입의 자료들이 순서대로 연속적으로 메모리에 저장됨. 원소들의 논리적 순서와 같은 순서로 기억공간에 저장됨.(순차구조). 즉 원소들의 논리적 순서 = 원소가 저장된 물리적 순서
+  - 길이가 고정되어 있다.
+  - 요소 접근은 빠르게 가능하지만(인덱스 연산), 삽입과 삭제는 시간이 오래 걸린다.
   - 관련 클래스: ArrayList, Vector
 - 연결 리스트
   - 물리적으로는 떨어져 있지만, 논리적으로는 바로 옆인게 특징.
+  - 길이가 가변적이다.
+  - 삽입과 삭제가 빠르지만, 요소 접근은 느리다.
   - 관련 클래스: LinkedList
 - Stack과 Queue
   - 뭘로 구현하든 상관 없다. 즉 배열로도 가능하고, 연결 리스트로도 가능하다. 스택은 선형 자료구조고, 큐는 선형도 있고 원형도 있고.
-  - 스택은 LIFO, 큐는 FIFO / 스택은 push()와 pop()과 peek(), 큐는 enqueue()와 dequeue()
+  - 스택은 LIFO, 큐는 FIFO / 스택은 push()와 pop()과 peek(), 큐는 add()와 offer(), poll()와 remove(), peek()이 있음.
   - 큐 앞은 front, 끝은 rear / 스택은 top
 - Binary Search Tree
   - 나를 기준으로 왼쪽 부분(left child)는 무조건 작은 값, 오른쪽 부분은 큰 값이여야 함. 그러면 자료 검색할 때 편하지.
   - 또 중복 허용하지 않음.
+  - 이를 통해서 정렬을 할 수 있음
+    - inorder(중위 순회): (왼쪽 자식) (나) (오른쪽 자식) 순으로 순회
+    - 무조건 왼쪽 부분에 작은 값, 오른쪽 부분에 큰 값이 있는게 BST니까, 중위 순회를 하면 오름차순으로 순회하게 됨.
   - 관련 클래스: TreeSet, TreeMap(앞의 클래스 둘 다 Red-Black Tree로 구현되어 있다.)
 - 해싱(hasing)
   - 산술 연산을 이용한 검색 방식.
@@ -1100,7 +1116,7 @@ public class Point<T, V> {
 - 컬렉션 프레임워크
   - 프로그램 구현에 필요한 자료구조를 구현해 놓은 라이브러리. 시간 복잡도 면에서 최적화된 알고리즘을 사용할 수 있음. 여러 인터페이스와 구현 클래스 사용 방법을 이해해야 함.
   - java.util 패키지에 구현되어 있음.
-  - Collection은 단일 값을 다루고, Map은 key-value 쌍(특기-축구)을 다룸. 이 때 key는 중복될 수 없음.
+  - Collection은 단일 값을 다루고, Map은 key-value 쌍(예로 특기-축구)을 다룸. 이 때 key는 중복될 수 없음.
   - List는 선형구조(한 줄로 쭉 늘어선 듯한 구조)고, 앞뒤 순서가 있음. 요소 중복되도 상관 없음.
   - Set은 집합임. 순서가 상관없음. 요소 중복되면 안됨. 그래서 유일한 데이터(id, 학번)를 주로 다룰 때 쓰임.
   - HashTable과 HashMap은 Vector와 ArrayList와 유사함. HashTable은 동기화를 지원하고, HashMap은 동기화 지원 안 함. HashMap을 주로 사용함.
@@ -1123,7 +1139,7 @@ public class Point<T, V> {
   - `boolean remove(Object o)`: Collection에 배개변수에 해당하는 인스턴스가 존재하면 제거
   - `int size()`: Collection에 있는 요소 개수 반환
 - ArrayList와 Vector
-  - 객체 배열을 구현한 클래스. 일반적으로는 ArrayList를 더 많이 사용하고, 멀티 쓰레드 상태에서 리소스에 대한 동기화가 필요한 경우 Vectro를 사용.
+  - 객체 배열을 구현한 클래스. 일반적으로는 ArrayList를 더 많이 사용하고, 멀티 쓰레드 상태에서 리소스에 대한 동기화가 필요한 경우 Vector를 사용.
   - 동기화(synchronization): 두 개의 쓰레드가 동시에 하나의 리소스에 접근할 때 순서를 맞추어 데이터에 오류가 발생하지 않도록 함.
   - ArrayList에 동기화 기능이 추가되어야 하는 경우: `Collections.synchronizedList(new ArrayList<String>());`
   - 쓰레드와 동기화는 OS와 관련되어 있음. 하드에 프로그램에 있고, 이걸 더블 클릭하면 메모리에 올라오고 이 때 프로그램을 프로세스라고 함. 프로세스는 **쓰레드**라는 작업 단위가 있고, 이게 cpu를 점유함(하나의 프로세스는 반드시 하나 이상의 쓰레드를 가지게 됨).
@@ -1140,20 +1156,21 @@ public class Point<T, V> {
 - Iterator 사용하여 순회하기
   - Collection의 개체(ArrayList, HashSet 등)를 순회하는 인터페이스
   - iterator() 메서드 호출: `Iterator<Member> ir = memberArrayList.iterator();`
+  - list의 경우 for문으로 순회할 수 있지만, set같이 순서가 없는 경우 필요함.
   - 선언된 메서드
     - boolean hasNext(): 이후에 요소가 더 있는지를 체크. 요소가 있다면 true 반환.
     - E next(): 다음에 있는 요소를 반환.
 - Set 인터페이스
   - Collection의 하위 리스트.
   - 중복을 허용하지 않음. 따라서 아이디, 주민번호 등 유일한 값이나 객체를 관리할 때 사용. 또 List는 순서가 있지만, Set은 순서가 없음. 따라서 저장된 순서와 출력 순서는 다를 수 있음.
-  - get(i) 메서드 제공되지 않음.
+  - get(i) 메서드 제공되지 않음. 인덱스 i의 값을 get하겠다는 뜻인데, set은 순서가 없으니까 당연히 안 됨.
 
 <br>
 
 ## 컬렉션 프레임워크 - TreeSet, HashMap, TreeMap
 
 - TreeSet 클래스
-  - 자바 클래스 이름 앞에 Tree가 붙으면 정렬이 됩니다. 객체의 정렬에 사용되는 클래스. 중복을 허용하지 않으면서 오름차순이나 내림차순으로 객체를 정렬함.
+  - 자바 클래스 이름 앞에 Tree가 붙으면 정렬이 된다. 객체의 정렬에 사용되는 클래스. 중복을 허용하지 않으면서 오름차순이나 내림차순으로 객체를 정렬함.
   - 내부적으로 이진 검색 트리로 구현되어 있음. 이진 검색 트리에 자료가 저장될 때 비교하여 저장될 위치를 정함. 객체 비교를 위해 Comparable이나 Comparator 인터페이스를 구현해야 함.
 - Comparable 과 Comparator 인터페이스
   - 정렬 대상이 되는 클래스가 구현해야 하는 인터페이스.
@@ -1174,7 +1191,7 @@ public class Point<T, V> {
   - 여러 메서드를 활용하여 pair 자료를 쉽고 빠르게 관리할 수 있음.
   - 객체 순회하기: iterator() 메서드는 하나의 Collection 객체만을 반환하므로 pair로 이루어진 객체는 각각 순회해야 함.
 - TreeMap 클래스
-  - key 객체를 정렬하여 key-value pari를 관리. key에 사용되는 클래스에 Comparable, Comparator 인터페이스를 구현.
+  - key 객체를 정렬하여 key-value pair를 관리. key에 사용되는 클래스에 Comparable, Comparator 인터페이스를 구현.
   - 단 java의 많은 클래스들은 이미 Comparable이 구현되어 있음. 따라서 구현된 클래스를 key로 사용하는 경우는 구현할 필요 없음.
 
 <br>
