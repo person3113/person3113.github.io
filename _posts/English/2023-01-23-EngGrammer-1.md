@@ -1,0 +1,231 @@
+---
+title: "[제이쌤의 포텐영문법] 품사의 이해 ~ 가정법 (예정)"
+excerpt: "강의들은 내용을 내 필요에 맞게 요약해서 기록"
+
+categories:
+  - English
+tags:
+  - []
+
+toc: true
+toc_sticky: true
+toc_label: "페이지 주요 목차"
+
+date: 2023-01-23
+last_modified_at: 2023-01-29
+---
+
+<br>
+
+<br>
+
+# 보는 방법
+
+- 블로그 내용은 내 필요에 맞게 요약해서 기록
+- 자세하게 기록 X -> 구체적인 내용은 교재나 강의 참고
+- 강의는 형용사 부분 중간부터 없어서 다른 시리즈의 비슷한 단원으로 학습했음
+
+<br><br>
+
+# type 1) 품사의 이해
+
+- 셀 수 있는 명사(a, ths, -s) vs. 셀 수 없는 명사
+  - 사람 또는 사물 vs. 그 단어의 본질적인 의미
+  - I go to the school(나는 학교에 가다) vs.I go to school(나는 공부하러 가다)
+
+<br><br>
+
+# type 2) 형식의 이해
+
+- 목적: 수식어가 끼어 있어도 목적어와 보어(명사 or 형용사)를 정확히 파악하기
+- 2형식 판단
+  - He left alone. : he = alone → 2형식
+  - You should make ready. : you = ready → 2형식
+- 4형식 판단
+  - (명사)에게 (명사)를 주다
+  - I found him a key.
+- 5형식 판단
+  - (명사)가 (명사)인 or (명사)가 (형용사)인
+    - I’m thinking my girlfriend in my class the most clever student.
+  - (명사)가 (동사)하는
+    - to 부정사
+      - 주로 미래와 어울리는 동사와 함께 쓰임
+      - I want him to help my children.
+    - 현재분사
+      - 주로 지각동사와 함께 쓰임
+      - I saw Sora singing on the stage.
+    - 과거분사
+      - 목적어가 동작을 당할 때
+      - I heard Sora interested in me.
+      - I expected her to be loved by everyone.
+    - 동사원형
+      - 강제성(사역동사)
+      - I had my car fixed.
+- 5형식을 3형식으로 혼돈(수식어에 의해)
+  - I believed the evidence we assumed true to be unscientific.
+  - I found the present government’s policy on education proposed by a politician an unrealistic dream which could be true in some distant future.
+
+<br><br>
+
+# type 3) 시제의 이해
+
+- 현재 시제
+  - 의미: 항상, 계속(과거+현재+미래)
+    - What do you do? (너의 직업은 무엇이니?): 직업이라는 것은 과거에도 했고, 현재도 하고 있으며, 앞으로도 하는 것이기에, 매일 무엇을 하는지 물어보는 것과 동일하다.
+    - He studies English hard. : 그는 (항상, 계속) 영어를 열심히 한다.
+- 현재 시제 + 부사(미래)
+  - 부사(미래)가 있으니까 미래를 뜻하지, 가까운 미래를 나타내기 위해서 현재시제를 쓰는 게 아님.
+  - School begins tomorrow. (가까운 미래)
+- 과거 시제
+  - 의미: 과거의 한 시점.
+  - Did you hear the news? : 과거의 특정한 시점에 들었는지 묻는 질문.
+- 과거 시제 + 부사(습관)
+  - 부사(습관)이 있어서 습관인지를 파악할 수 있지, 습관을 나타내기 위해서 과거시제를 쓰는 게 아님.
+  - I often told them my funny episodes on a summer evening. (과거의 반복되는 습관)
+- 현재 완료
+  - 기본 의미: 일반적으로 “과거부터 지금까지 해왔다.”로 해석하는 것이 좋다.
+  - 의미 파악
+    - 동사에 의해 의미가 결정됨.
+      - He has lived in Seoul. : live(동사가 지속성을 가짐) → 계속(지금까지 살아왔고 앞으로도 살 것이다)
+    - 부사에 의해 의미가 결정됨.
+      - I have studied English (once). : once(부사) → 경험(공부해 본 적이 있다.)
+      - I have (just) studied English. : just(부사) → 완료(과거부터 지금까지 공부해왔다.)
+      - I have studied English (for years). : for years(부사) → 계속(지금까지 공부해왔고, 앞으로도 할 것이다.)
+
+<br><br>
+
+# type 4) 수동태의 이해
+
+- 수동태
+  - 목적어가 주어로 위치하는 경우
+  - I love you. → you are loved by me.
+  - Everyone respects you. → you are respected (by everyone).
+    - 불특정다수이기 때문에 by everyone을 생략
+    - 수동태에서 생략된 건 다 “by people”이라 생각하면 된다.
+- 감정수동태
+  - Socer excites him. → He is excited at soccer.
+  - Music interests me. → I am interested in Music.
+  - Lots of money satisfied me. → I was satisfied with lots of money.
+- 수동태 + 시제
+  - 현재진행 수동태: Some are learning Korean in other countries. → Korean is being learned in other countries.
+  - 현재완료 수동태: Jay has taught English in school. → English has been taught by Jay in school.
+- 5형식 수동태
+  - 2형식(S = C)로 취급
+  - 보어가 형용사/명사일 때
+    - Jay made Sora sad. → Sora was made sad. : Sora = sad
+    - They elected Jay president. → Jay was elected president. : Jay = president
+  - 보어가 동사일 때
+    - We expected him to go to library. → He was expected to go to library. : he = go to library → He goes to library.
+    - We made him go to library. → He was made to go to library. : he = go to library → He goes to library.
+    - We saw him go to library. → He was seen to go to library. : he = go to library → He goes to library.
+
+<br><br>
+
+# type 5) 명사의 이해
+
+- 명사
+  - to부정사, 동명사, that절 : 동사가 주어, 목적어, 보어에 있으니까 to부정사, 동명사, that절로 고쳐서 쓰는 것일 뿐
+  - 의문사구, 의문사절
+- 가주어
+  - It is difficult to study English. : to부정사
+  - It is difficult studying English. : 동명사
+  - It is difficult that we study English. : that절
+  - it is no use ~ing: ~해도 소용없다.
+    - It is no use persuading him. : 가주어O
+    - Persuading him is no use. : 가주어X
+- 가목적어
+  - I know it difficult to learn English.
+    - to 부정사 가목적어
+    - 원래는 I know to learn English difficult.
+  - make it a rule to V: ~를 규칙으로 삼다.
+    - I made it a rule to arrive at the class on time. : 가목적어O
+    - I made to arrive at the class on time a rule. : 가목적어X
+- 의문사구, 의문사절
+  - She asked me where to go. : 의문사구
+  - She asked me where I should go. : 의문사절
+
+<br><br>
+
+# type 6) 형용사의 이해
+
+- to부정사, 관계대명사, 관계부사, 분사: 명사를 수식할 경우 명사 뒤에서 수식한다.
+- to부정사 형용사적 용법
+  - 보어(~이다 / 상태)
+    - They are to be back by ten.
+      - 그들은 열시까지 돌아온다.
+      - be back이 동사인데 보어 자리에 있으니까, to를 붙여서 형용사로 바꿔준 것!
+    - He is to arrive this evening.
+      - 그는 오늘 저녁에 도착한다.
+      - arrive 가 동사인데 보어 자리에 있으니까, to를 붙여서 형용사로 바꿔준 것!
+  - 명사 수식
+    - 명사가 to부정사의 목적어: 만약 해당 안 되면 형용사적 용법이 아닌 부사적 용법임.
+      - I need a book to study. ←→ I need a book to study English: 전자는 형용사, 후자는 부사적 용법
+      - I have a chair to sit on. : sit on a chair
+    - 의미적으로 명사를 수식하는 경우: 위 기준의 예외 경우
+      - 주로 way, time, chance 등
+        - I know the way to speak English. : speak English the way (X), 그러나 의미적으로 명사를 꾸미므로 형용사적 용법으로 봐야함.
+        - It’s a time to go.
+        - I have a chance to hear his music.
+- 주격 관계대명사
+  - I know the guy kind. (5형식)
+    - I know the guy + He is kind. → (겹치는 명사는 뒷 문장에서 삭제 후, 앞문장 공통 단어 뒤에 관계대명사를 쓰기) → I know the guy who is kind.
+    - (주격관계대명사 + be동사 생략 가능) → I know the guy (who is) kind. → I know the guy kind.
+  - I know the guy playing the piano.
+    - I know the guy + He is playing the piano. → I know the guy who is playing the piano.
+    - → I know the guy (who is) playing the piano. → I know the guy playing the piano.
+  - I know the guy loved by many girls.
+    - I know the guy + He is loved by many girls. → I know the guy who is loved by many girls.
+    - → I know the guy (who is) loved by many girls.. → I know the guy loved by many girls.
+- 목적격 관계대명사는 생략 가능
+  - I know the truth (that) you don’t know.
+  - I know the guy (whom) most people like.
+- 관계대명사 what
+  - I want the book which is useful. → (일반화)→ I want something which is useful. → I want what is useful. : ~한 것
+- 소유력 관계대명사
+  - I built the house whose color is blue. : I built the house + the house’s color is blue
+  - I built the house of which the color is blue. : I built the house + the color of the house is blue → I built the house the color of which is blue (이것도 맞는 표현) → 관계대명사는 관게사 역할도 해야 하니까 of which를 앞으로 땡겨서 → I built the house of which the color is blue.
+- 관계부사
+  - 시간: when / 장소: where / 이유: why / 방법: how / 기타: 전치사 + 명사
+  - I know the reason why he likes you. : 나는 그가 너를 좋아하는 이유를 안다.
+    - cf) I know why he likes you. (간접의문문): 나는 그가 너를 왜 좋아하는지 안다.
+    - I know the reason + He likes you for the reason. → I know the reason which he likes you for. → I know the reason for which he likes you → I know the reason why he likes you.
+- 선행사 찾기
+  - The students love him who teaches English well.
+    - 선행사는 him
+    - teaches(3인칭 단수) = him
+  - The students love him who want to study well.
+    - 선행사는 students
+    - want(복수) = students
+- 분사
+  - the drug which kills pain (the drug killing pain): which kills → killing
+  - a trained soldier = a soldier who is trained = a soldier trained : who is 생략돼서 a soldier trained
+  - Soldiers trained easily wake up at dawn
+
+<br><br>
+
+# type 7) 부사의 이해
+
+- 종류: to부정사 부사적 용법, 전치사 + 명사 등
+- 분사구문
+  - 만들기
+    1. 부사절 주어 생략(부사절, 주절 주어가 동일할 때)
+    2. 접속사 생략가능
+    3. 동사에 ing를 붙인다 (being이 될 경우 생략 가능)
+  - 해석
+    1. 주어는?
+    2. 접속사 추측
+  - 예문
+    - Living in Seoul, I got acquainted with him. : when I lived in Seoul, I got acquainted with him.
+    - Loving English, I decided to be a diplomat. : As I loved English, I decided to be a diplomat.
+    - Interested in English, I decided to be a diplomat. : As I was interested in English, I decided to be a diplomat. → Being interested in English, I decided to be a diplomat. → being이 될 경우 생략 가능
+    - The sun having set, we started for home. : When the sun had set, we started for home. (주어불일치)
+- 분사구문( , ~ing)
+  - ~하면서(동시동작, while) 혹은 그리고/그리고 나서(and then)으로 해석
+  - They danced, singing together. : while
+  - He extended his hand, smiling brightly. : while or and then
+  - We started in the early morning, arriving in Seoul at seven. : and then
+- 형용사/부사 삭제 연습 → 형식 파악
+  - People who want to learn English in Korea prefer American English mostly used throughout the world over British English originated from England because of pronunciation.
+  - People who want to learn English ~~in Korea~~ prefer American English mostly used ~~throughout the world~~ ~~over British English~~ originated from England ~~because of pronunciation.~~
+  - People ~~who want to learn English~~ prefer American English ~~mostly used~~ ~~originated from England.~~
+  - People prefer American English.
