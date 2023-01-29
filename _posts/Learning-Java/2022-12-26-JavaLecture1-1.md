@@ -12,7 +12,7 @@ toc_sticky: true
 toc_label: "페이지 주요 목차"
 
 date: 2022-12-26
-last_modified_at: 2023-01-26
+last_modified_at: 2023-01-28
 ---
 
 <br>
@@ -1289,6 +1289,14 @@ public class Point<T, V>{
 <img width="541" alt="image" src="https://user-images.githubusercontent.com/112764753/210200142-7b5103c9-67c1-43ad-9898-a6045fb90de5.png">
 
 - 표준 입출력
+  - System 클래스의 표준 입출력 멤버
+  ```java
+  public class System {
+    public static PrintStream out;
+    public static InputStream in;
+    public static PrintStream err;
+  }
+  ```
   - System.out: 표준 출력(모니터) 스트림
   - System.in: 표준 입력(키보드) 스트림
   - System.err
@@ -1325,7 +1333,7 @@ public class Point<T, V>{
   - 하위 클래스에서 상속받아 구현함.
   - 주요 하위 클래스
     - FileWriter
-    - InputStreamWriter
+    - OutputStreamWriter
     - BufferedWriter: 문자로 쓸 때 배열을 사용하여 한꺼번에 쓸 수 있는 기능을 제공해주는 보조 스트림.
   - 주요 메서드: write(), flush(), close()
 
@@ -1338,7 +1346,7 @@ public class Point<T, V>{
 <img width="482" alt="image" src="https://user-images.githubusercontent.com/112764753/210203058-60146859-9635-4c71-90db-01298f405e63.png">
 - 확실 X(100% 내 추측)
   - 보조 스트림 생성자로 생성할 때, 그 생성자 매개변수에 보조/기반 스트림을 넣어주고, 마지막에는 무조건 기반 스트림을 넣는 걸로 보임.
-  - ex) `BufferedReader = new BufferedReader(new InputStreamReader(System.in));`
+  - ex) `BufferedReader br = new BufferedReader(new InputStreamReader(System.in));`
   : BufferedReader, InputStreamReader는 보조 스트림. System.in은 표준 입력 스트림(아마 기반 스트림).
 
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/112764753/210203849-6842de13-d60a-47b9-9819-b23e01289c2f.png">
@@ -1348,5 +1356,6 @@ public class Point<T, V>{
 <img width="551" alt="image" src="https://user-images.githubusercontent.com/112764753/210204889-25b7084b-2569-477a-bbc7-5ed5ceffdfb7.png">
 
 - Serializable 인터페이스(마커 인터페이스)
+  - 직렬화는 인스턴스 내용이 외부로 유출되는 것이므로, 프로그래머가 직렬화 의도를 표시해서 이 인터페이스를 씀.
 - Externalizable 인터페이스
 - RandomAccessFile 클래스

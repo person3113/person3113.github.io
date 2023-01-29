@@ -5,7 +5,7 @@ excerpt: "스프링 관련 내용을 전반적으로 쭉 훑는 강의"
 categories:
   - Learning-Spring
 tags:
-  - [Spring Boot]
+  - []
 
 toc: true
 toc_sticky: true
