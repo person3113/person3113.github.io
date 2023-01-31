@@ -1629,7 +1629,7 @@ public class Calculator extends HttpServlet{
   - 우리는 이런 변수가 있음을 알고 있어야 하고, 이를 적절히 활용해서 만들 수도 있어야 한다.
   - request, response: 입력, 출력 도구
   - applicaton, session 객체
-  - pageContext가
+  - pageContext
     - applicaton, session처럼 페이지 내에서 임시로 데이터를 저장할 수 있는(setAttribute, getAttribute 갖고 있는) 변수
     - ServletContext는 전역에서 사용하는 거라면, PageContext는 파일 내부에서만 쓰는 저장소라고 보면 됨
   - config(ServletConfig 변수), out(출력도구), page(이 페이지의 객체를 참조하는 Object 변수)
